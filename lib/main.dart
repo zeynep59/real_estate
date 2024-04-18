@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:real_estate/screens/signin.dart';
 import 'package:real_estate/screens/signup.dart';
+import 'package:real_estate/screens/form_page.dart';
 import 'package:real_estate/screens/welcome.dart';
 import 'package:real_estate/theme/theme.dart';
 
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/sign_in': (context) => SignInScreen(),
         '/sign_up': (context) => SignUpScreen(),
+        '/form_page': (context) => FormPage(),
       },
     );
   }

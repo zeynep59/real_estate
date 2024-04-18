@@ -4,6 +4,7 @@ import 'package:real_estate/widgets/welcome_button.dart';
 import 'package:real_estate/screens/signin.dart';
 import 'package:real_estate/screens/signup.dart';
 import 'package:real_estate/theme/theme.dart';
+import 'package:real_estate/screens/form_page.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({Key? key}) : super(key: key);
@@ -78,7 +79,7 @@ class WelcomePage extends StatelessWidget {
                             EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                       ),
                       child: Text(
-                        'Sign Up',
+                        'Sign up',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 18,
@@ -89,6 +90,31 @@ class WelcomePage extends StatelessWidget {
                 ),
               ),
               Spacer(),
+              SizedBox(height: 20), // Added space before the additional button
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/form_page');
+                },
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  backgroundColor:
+                      Colors.transparent, // Set background color to transparent
+                  shadowColor:
+                      Colors.transparent, // Set shadow color to transparent
+                  elevation: 0, // Set elevation to 0 to remove shadow
+                ),
+                child: Text(
+                  'Continue without login', // Customize text as needed
+                  style: TextStyle(
+                    color: Colors.white, // Set text color to blue
+                    fontSize: 18,
+                    decoration: TextDecoration.underline, // Underline the text
+                  ),
+                ),
+              ),
             ],
           ),
         ],
