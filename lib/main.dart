@@ -4,7 +4,7 @@ import 'package:real_estate/screens/signup.dart';
 import 'package:real_estate/screens/form_page.dart';
 import 'package:real_estate/screens/welcome.dart';
 import 'package:real_estate/theme/theme.dart';
-import 'screens/map_page.dart';
+import 'package:real_estate/screens/map_page.dart';
 
 void main() {
   runApp(const MyApp());
