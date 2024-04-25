@@ -5,8 +5,18 @@ import 'package:real_estate/screens/form_page.dart';
 import 'package:real_estate/screens/welcome.dart';
 import 'package:real_estate/theme/theme.dart';
 import 'package:real_estate/screens/map_page.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+      options: FirebaseOptions(
+    apiKey: 'AIzaSyBOngdyzESg55d9sRtlVcHFfNYxbyTCJ3A',
+    appId: '1:526785684071:android:4e31921f1cd29a21aeaac2',
+    messagingSenderId: '526785684071	',
+    projectId: 'realestate-412921',
+  ));
+
   runApp(const MyApp());
 }
 
