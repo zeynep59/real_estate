@@ -1,4 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
     <application
         android:label="real_estate"
         android:name="${applicationName}"
@@ -10,7 +11,9 @@
             android:theme="@style/LaunchTheme"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
             android:hardwareAccelerated="true"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="adjustResize"
+            android:enableOnBackInvokedCallback="true"
+>
             <!-- Specifies an Android theme to apply to this Activity as soon as
                  the Android process has started. This theme is visible to the user
                  while the Flutter UI initializes. After that, this theme continues
@@ -26,8 +29,10 @@
         </activity>
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
-        <meta-data
+       <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
-    </application>
+        <meta-data android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBOngdyzESg55d9sRtlVcHFfNYxbyTCJ3A"/>
+        </application>
 </manifest>

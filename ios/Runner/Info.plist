@@ -43,7 +43,10 @@
 	</array>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
+	
+	<string>NSLocationAlwaysUsageDescription</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
-	<true/>
+	<string> NSLocationWhenInUseUsageDescription</string>
+	<key>want to display location on map, and track it.</key>
 </dict>
 </plist>
