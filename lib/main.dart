@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:real_estate/screens/map_page.dart';
 import 'package:real_estate/screens/signin.dart';
 import 'package:real_estate/screens/signup.dart';
 import 'package:real_estate/screens/form_page.dart';
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
         '/sign_in': (context) => SignInScreen(),
         '/sign_up': (context) => SignUpScreen(),
         '/form_page': (context) => FormPage(),
+        '/map_page': (context) => MapPage()
       },
     );
   }
