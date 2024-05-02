@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:location/location.dart';
 
 class MapPage extends StatefulWidget {
   const MapPage({Key? key}) : super(key: key);
@@ -10,6 +11,8 @@ class MapPage extends StatefulWidget {
 }
 
 class _MapPageState extends State<MapPage> {
+  Location _locationController = new Location();
+  static const LatLng _pApplePark = LatLng(37.4223, -122.0090);
   static const LatLng _pGooglePlex = LatLng(37.4223, -122.0848);
 
   @override
