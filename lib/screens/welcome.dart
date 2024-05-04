@@ -107,7 +107,7 @@ class WelcomePage extends StatelessWidget {
                   elevation: 0, // Set elevation to 0 to remove shadow
                 ),
                 child: Text(
-                  'Continue without login', // Customize text as needed
+                  'map', // Customize text as needed
                   style: TextStyle(
                     color: Colors.white, // Set text color to blue
                     fontSize: 18,
@@ -132,7 +132,7 @@ class WelcomePage extends StatelessWidget {
                   elevation: 0, // Set elevation to 0 to remove shadow
                 ),
                 child: Text(
-                  '', // Customize text as needed
+                  'form', // Customize text as needed
                   style: TextStyle(
                     color: Colors.white, // Set text color to blue
                     fontSize: 18,
