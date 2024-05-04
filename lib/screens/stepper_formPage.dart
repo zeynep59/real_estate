@@ -9,7 +9,7 @@ class StepperPage extends StatelessWidget {
     return MaterialApp(
       home: Theme(
         data: ThemeData(
-          canvasColor: Color(0xFFD7D7D7),
+          canvasColor: Colors.white,
           colorScheme: Theme.of(context).colorScheme.copyWith(primary: lightColorScheme.primary ),
           //primaryColor: lightColorScheme.primary, // Stepper'ın başlık rengi
           textTheme: TextTheme(
@@ -204,10 +204,10 @@ class _MyStepperState extends State<MyStepper> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:  Color(0xFFD7D7D7),
+      backgroundColor:  Colors.white,
       appBar: AppBar(
-        title: Text('5 Adımlı Stepper'),
-        backgroundColor:  Color(0xFFD7D7D7),
+        title: Text(''),
+        backgroundColor:  Colors.white,
       ),
       body: Stepper(
         type: StepperType.horizontal,
@@ -225,499 +225,537 @@ class _MyStepperState extends State<MyStepper> {
         },
         steps: List<Step>.generate(5, (index) {
           if (index == 1) { // This is the second step
+            TextStyle labelTextStyle = const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w300,
+              color: Colors.black,
+              fontFamily: 'Arial',
+            );
+
             return Step(
               isActive: true,
               state: _currentStep == 1 ? StepState.editing : StepState.indexed,
               title: Text(''),
-              content:
-              Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                SizedBox(height: 20),
-                Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Color(0xFFFFE724C), width: 4.0),
-                    borderRadius: BorderRadius.circular(5.0),
-                  ),
-                  constraints: BoxConstraints(maxHeight: 50),
-                  child: TextFormField(
-                    controller: cityController,
-                    decoration: InputDecoration(
-                      labelText: 'City',
-                      border: InputBorder.none,
+              content: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  SizedBox(height: 20),
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Color(0xFFFFE724C), width: 1.0),
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                    constraints: BoxConstraints(maxHeight: 50),
+                    child: TextFormField(
+                      controller: cityController,
+                      decoration: InputDecoration(
+                        labelText: 'City',
+                        labelStyle: labelTextStyle,
+                        border: InputBorder.none,
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(height: 10),
-                Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Color(0xFFFFE724C), width: 4.0),
-                    borderRadius: BorderRadius.circular(3.0),
-                  ),
-                  constraints: BoxConstraints(maxHeight: 50),
-                  child: TextFormField(
-                    controller: countryController,
-                    decoration: InputDecoration(
-                      labelText: 'County',
-                      border: InputBorder.none,
+                  SizedBox(height: 10),
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Color(0xFFFFE724C), width: 1.0),
+                      borderRadius: BorderRadius.circular(3.0),
+                    ),
+                    constraints: BoxConstraints(maxHeight: 50),
+                    child: TextFormField(
+                      controller: countryController,
+                      decoration: InputDecoration(
+                        labelText: 'County',
+                        labelStyle: labelTextStyle,
+                        border: InputBorder.none,
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(height: 10),
-                Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Color(0xFFFFE724C), width: 4.0),
-                    borderRadius: BorderRadius.circular(3.0),
-                  ),
-                  constraints: BoxConstraints(maxHeight: 50),
-                  child: TextFormField(
-                    controller: districtController,
-                    decoration: InputDecoration(
-                      labelText: 'District',
-                      border: InputBorder.none,
+                  SizedBox(height: 10),
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Color(0xFFFFE724C), width: 1.0),
+                      borderRadius: BorderRadius.circular(3.0),
+                    ),
+                    constraints: BoxConstraints(maxHeight: 50),
+                    child: TextFormField(
+                      controller: districtController,
+                      decoration: InputDecoration(
+                        labelText: 'District',
+                        labelStyle: labelTextStyle,
+                        border: InputBorder.none,
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(height: 10),
-                Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Color(0xFFFFE724C), width: 4.0),
-                    borderRadius: BorderRadius.circular(3.0),
-                  ),
-                  constraints: BoxConstraints(maxHeight: 50),
-                  child: TextFormField(
-                    controller: streetController,
-                    decoration: InputDecoration(
-                      labelText: 'Street',
-                      border: InputBorder.none,
+                  SizedBox(height: 10),
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Color(0xFFFFE724C), width: 1.0),
+                      borderRadius: BorderRadius.circular(3.0),
+                    ),
+                    constraints: BoxConstraints(maxHeight: 50),
+                    child: TextFormField(
+                      controller: streetController,
+                      decoration: InputDecoration(
+                        labelText: 'Street',
+                        labelStyle: labelTextStyle,
+                        border: InputBorder.none,
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(height: 10),
-                Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Color(0xFFFFE724C), width: 4.0),
-                    borderRadius: BorderRadius.circular(3.0),
-                  ),
-                  constraints: BoxConstraints(maxHeight: 50),
-                  child: TextFormField(
-                    controller: squareMeterController,
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                      labelText: 'Squaremeter',
-                      border: InputBorder.none,
+                  SizedBox(height: 10),
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Color(0xFFFFE724C), width: 1.0),
+                      borderRadius: BorderRadius.circular(3.0),
+                    ),
+                    constraints: BoxConstraints(maxHeight: 50),
+                    child: TextFormField(
+                      controller: squareMeterController,
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        labelText: 'Squaremeter',
+                        labelStyle: labelTextStyle,
+                        border: InputBorder.none,
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(height: 10),
-                Text('State of Use:', style: TextStyle(fontSize: 16)),
-                Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Radio<String>(
-                      value: 'Property Owner',
-                      groupValue: stateOfUse,
-                      onChanged: (value) {
-                        setState(() {
-                          stateOfUse = value!;
-                        });
-                      },
+                  SizedBox(height: 10),
+                  Text(
+                    'State of Use:',
+                    style: labelTextStyle.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: const Color(0xFFFE724C), // Yeni renk burada belirtiliyor
                     ),
-                    Text('Property Owner'),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Radio<String>(
-                      value: 'Empty',
-                      groupValue: stateOfUse,
-                      onChanged: (value) {
-                        setState(() {
-                          stateOfUse = value!;
-                        });
-                      },
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Radio<String>(
+                            value: 'Property Owner',
+                            groupValue: stateOfUse,
+                            onChanged: (value) {
+                              setState(() {
+                                stateOfUse = value!;
+                              });
+                            },
+                          ),
+                          Text(
+                            'Property Owner',
+                            style: labelTextStyle,
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Radio<String>(
+                            value: 'Empty',
+                            groupValue: stateOfUse,
+                            onChanged: (value) {
+                              setState(() {
+                                stateOfUse = value!;
+                              });
+                            },
+                          ),
+                          Text(
+                            'Empty',
+                            style: labelTextStyle,
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Radio<String>(
+                            value: 'Tenant',
+                            groupValue: stateOfUse,
+                            onChanged: (value) {
+                              setState(() {
+                                stateOfUse = value!;
+                              });
+                            },
+                          ),
+                          Text(
+                            'Tenant',
+                            style: labelTextStyle,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    'Structure Status:',
+                    style: labelTextStyle.copyWith(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: const Color(0xFFFE724C),
                     ),
-                    Text('Empty'),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Radio<String>(
-                      value: 'Tenant',
-                      groupValue: stateOfUse,
-                      onChanged: (value) {
-                        setState(() {
-                          stateOfUse = value!;
-                        });
-                      },
-                    ),
-                    Text('Tenant'),
-                  ],
-                ),
-
-                SizedBox(height: 10),
-                Text('Structure Status:', style: TextStyle(fontSize: 16)),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Text('Number of Rooms: ', style: TextStyle(fontWeight: FontWeight.bold)),
-                        SizedBox(width: 8.0), // Ekledim
-                        Expanded(
-                          child: Container(
-                            height: 40.0, // Sabit yükseklik
-                            margin: EdgeInsets.only(bottom: 8.0, left: 49.0),
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Color(0xFFFFE724C), width: 4.0),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                  child: Center(
-                                    child: Text(
-                                      '$countOfRoom',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        fontSize: 18.0, // Yazı boyutunu ayarladım
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Text(
+                            'Number of Rooms: ',
+                            style: labelTextStyle,
+                          ),
+                          SizedBox(width: 8.0), // Ekledim
+                          Expanded(
+                            child: Container(
+                              height: 40.0, // Sabit yükseklik
+                              margin: EdgeInsets.only(bottom: 8.0, left: 52.0),
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Color(0xFFFFE724C), width: 1.0),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    child: Center(
+                                      child: Text(
+                                        '$countOfRoom',
+                                        textAlign: TextAlign.center,
+                                        style: labelTextStyle,
                                       ),
                                     ),
                                   ),
-                                ),
-                                Row(
-                                  children: [
-                                    IconButton(
-                                      onPressed: () => decrementValue('Number of Rooms'),
-                                      icon: Icon(Icons.remove),
-                                    ),
-                                    IconButton(
-                                      onPressed: () => incrementValue('Number of Rooms'),
-                                      icon: Icon(Icons.add),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                                  Row(
+                                    children: [
+                                      IconButton(
+                                        onPressed: () => decrementValue('Number of Rooms'),
+                                        icon: Icon(Icons.remove),
+                                      ),
+                                      IconButton(
+                                        onPressed: () => incrementValue('Number of Rooms'),
+                                        icon: Icon(Icons.add),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text('Number of Halls: ', style: TextStyle(fontWeight: FontWeight.bold)),
-                        SizedBox(width: 8.0), // Ekledim
-                        Expanded(
-                          child: Container(
-                            height: 40.0, // Sabit yükseklik
-                            margin: EdgeInsets.only(bottom: 8.0, left: 61.0),
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Color(0xFFFFE724C), width: 4.0),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                  child: Center(
-                                    child: Text(
-                                      '$countOfSaloon',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        fontSize: 18.0, // Yazı boyutunu ayarladım
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            'Number of Halls: ',
+                            style: labelTextStyle,
+                          ),
+                          SizedBox(width: 8.0), // Ekledim
+                          Expanded(
+                            child: Container(
+                              height: 40.0, // Sabit yükseklik
+                              margin: EdgeInsets.only(bottom: 8.0, left: 66.0),
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Color(0xFFFFE724C), width: 1.0),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    child: Center(
+                                      child: Text(
+                                        '$countOfSaloon',
+                                        textAlign: TextAlign.center,
+                                        style: labelTextStyle,
                                       ),
                                     ),
                                   ),
-                                ),
-                                Row(
-                                  children: [
-                                    IconButton(
-                                      onPressed: () => decrementValue('Number of Halls'),
-                                      icon: Icon(Icons.remove),
-                                    ),
-                                    IconButton(
-                                      onPressed: () => incrementValue('Number of Halls'),
-                                      icon: Icon(Icons.add),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                                  Row(
+                                    children: [
+                                      IconButton(
+                                        onPressed: () => decrementValue('Number of Halls'),
+                                        icon: Icon(Icons.remove),
+                                      ),
+                                      IconButton(
+                                        onPressed: () => incrementValue('Number of Halls'),
+                                        icon: Icon(Icons.add),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text('Number of Bathrooms: ', style: TextStyle(fontWeight: FontWeight.bold)),
-                        SizedBox(width: 8.0), // Ekledim
-                        Expanded(
-                          child: Container(
-                            height: 40.0, // Sabit yükseklik
-                            margin: EdgeInsets.only(bottom: 8.0, left: 22.0),
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Color(0xFFFFE724C), width: 4.0),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                  child: Center(
-                                    child: Text(
-                                      '$countOfBath',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        fontSize: 18.0, // Yazı boyutunu ayarladım
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            'Number of Bathrooms: ',
+                            style: labelTextStyle,
+                          ),
+                          SizedBox(width: 8.0), // Ekledim
+                          Expanded(
+                            child: Container(
+                              height: 40.0, // Sabit yükseklik
+                              margin: EdgeInsets.only(bottom: 8.0, left: 22.0),
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Color(0xFFFFE724C), width: 1.0),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    child: Center(
+                                      child: Text(
+                                        '$countOfBath',
+                                        textAlign: TextAlign.center,
+                                        style: labelTextStyle,
                                       ),
                                     ),
                                   ),
-                                ),
-                                Row(
-                                  children: [
-                                    IconButton(
-                                      onPressed: () => decrementValue('Number of Bathrooms'),
-                                      icon: Icon(Icons.remove),
-                                    ),
-                                    IconButton(
-                                      onPressed: () => incrementValue('Number of Bathrooms'),
-                                      icon: Icon(Icons.add),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                                  Row(
+                                    children: [
+                                      IconButton(
+                                        onPressed: () => decrementValue('Number of Bathrooms'),
+                                        icon: Icon(Icons.remove),
+                                      ),
+                                      IconButton(
+                                        onPressed: () => incrementValue('Number of Bathrooms'),
+                                        icon: Icon(Icons.add),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text('Gross Area: ', style: TextStyle(fontWeight: FontWeight.bold)),
-                        SizedBox(width: 8.0), // Ekledim
-                        Expanded(
-                          child: Container(
-                            height: 40.0, // Sabit yükseklik
-                            margin: EdgeInsets.only(bottom: 8.0, left: 93.0),
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Color(0xFFFFE724C), width: 4.0),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                  child: Center(
-                                    child: Text(
-                                      '$grossArea',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        fontSize: 18.0, // Yazı boyutunu ayarladım
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            'Gross Area: ',
+                            style: labelTextStyle,
+                          ),
+                          SizedBox(width: 8.0), // Ekledim
+                          Expanded(
+                            child: Container(
+                              height: 40.0, // Sabit yükseklik
+                              margin: EdgeInsets.only(bottom: 8.0, left: 104.0),
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Color(0xFFFFE724C), width: 1.0),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    child: Center(
+                                      child: Text(
+                                        '$grossArea',
+                                        textAlign: TextAlign.center,
+                                        style: labelTextStyle,
                                       ),
                                     ),
                                   ),
-                                ),
-                                Row(
-                                  children: [
-                                    IconButton(
-                                      onPressed: () => decrementValue('Gross Area'),
-                                      icon: Icon(Icons.remove),
-                                    ),
-                                    IconButton(
-                                      onPressed: () => incrementValue('Gross Area'),
-                                      icon: Icon(Icons.add),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                                  Row(
+                                    children: [
+                                      IconButton(
+                                        onPressed: () => decrementValue('Gross Area'),
+                                        icon: Icon(Icons.remove),
+                                      ),
+                                      IconButton(
+                                        onPressed: () => incrementValue('Gross Area'),
+                                        icon: Icon(Icons.add),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text('Terrace Area: ', style: TextStyle(fontWeight: FontWeight.bold)),
-                        SizedBox(width: 8.0), // Ekledim
-                        Expanded(
-                          child: Container(
-                            height: 40.0, // Sabit yükseklik
-                            margin: EdgeInsets.only(bottom: 8.0, left: 82.0),
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Color(0xFFFFE724C), width: 4.0),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                  child: Center(
-                                    child: Text(
-                                      '$terraceArea',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        fontSize: 18.0, // Yazı boyutunu ayarladım
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            'Terrace Area: ',
+                            style: labelTextStyle,
+                          ),
+                          SizedBox(width: 8.0), // Ekledim
+                          Expanded(
+                            child: Container(
+                              height: 40.0, // Sabit yükseklik
+                              margin: EdgeInsets.only(bottom: 8.0, left: 92.0),
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Color(0xFFFFE724C), width: 1.0),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    child: Center(
+                                      child: Text(
+                                        '$terraceArea',
+                                        textAlign: TextAlign.center,
+                                        style: labelTextStyle,
                                       ),
                                     ),
                                   ),
-                                ),
-                                Row(
-                                  children: [
-                                    IconButton(
-                                      onPressed: () => decrementValue('Terrace Area'),
-                                      icon: Icon(Icons.remove),
-                                    ),
-                                    IconButton(
-                                      onPressed: () => incrementValue('Terrace Area'),
-                                      icon: Icon(Icons.add),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                                  Row(
+                                    children: [
+                                      IconButton(
+                                        onPressed: () => decrementValue('Terrace Area'),
+                                        icon: Icon(Icons.remove),
+                                      ),
+                                      IconButton(
+                                        onPressed: () => incrementValue('Terrace Area'),
+                                        icon: Icon(Icons.add),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text('Building Age: ', style: TextStyle(fontWeight: FontWeight.bold)),
-                        SizedBox(width: 8.0), // Ekledim
-                        Expanded(
-                          child: Container(
-                            height: 40.0, // Sabit yükseklik
-                            margin: EdgeInsets.only(bottom: 8.0, left: 82.0),
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Color(0xFFFFE724C), width: 4.0),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                  child: Center(
-                                    child: Text(
-                                      '$buildingAge',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        fontSize: 18.0, // Yazı boyutunu ayarladım
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            'Building Age: ',
+                            style: labelTextStyle,
+                          ),
+                          SizedBox(width: 8.0), // Ekledim
+                          Expanded(
+                            child: Container(
+                              height: 40.0, // Sabit yükseklik
+                              margin: EdgeInsets.only(bottom: 8.0, left: 93.0),
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Color(0xFFFFE724C), width: 1.0),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    child: Center(
+                                      child: Text(
+                                        '$buildingAge',
+                                        textAlign: TextAlign.center,
+                                        style: labelTextStyle,
                                       ),
                                     ),
                                   ),
-                                ),
-                                Row(
-                                  children: [
-                                    IconButton(
-                                      onPressed: () => decrementValue('Building Age'),
-                                      icon: Icon(Icons.remove),
-                                    ),
-                                    IconButton(
-                                      onPressed: () => incrementValue('Building Age'),
-                                      icon: Icon(Icons.add),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                                  Row(
+                                    children: [
+                                      IconButton(
+                                        onPressed: () => decrementValue('Building Age'),
+                                        icon: Icon(Icons.remove),
+                                      ),
+                                      IconButton(
+                                        onPressed: () => incrementValue('Building Age'),
+                                        icon: Icon(Icons.add),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text('Floor on It is Located: ', style: TextStyle(fontWeight: FontWeight.bold)),
-                        SizedBox(width: 8.0), // Ekledim
-                        Expanded(
-                          child: Container(
-                            height: 40.0, // Sabit yükseklik
-                            margin: EdgeInsets.only(bottom: 8.0, left: 27.0),
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Color(0xFFFFE724C), width: 4.0),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                  child: Center(
-                                    child: Text(
-                                      '$whichFloor',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        fontSize: 18.0, // Yazı boyutunu ayarladım
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            'Floor on It is Located: ',
+                            style: labelTextStyle,
+                          ),
+                          SizedBox(width: 8.0), // Ekledim
+                          Expanded(
+                            child: Container(
+                              height: 40.0, // Sabit yükseklik
+                              margin: EdgeInsets.only(bottom: 8.0, left: 30.0),
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Color(0xFFFFE724C), width: 1.0),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    child: Center(
+                                      child: Text(
+                                        '$whichFloor',
+                                        textAlign: TextAlign.center,
+                                        style: labelTextStyle,
                                       ),
                                     ),
                                   ),
-                                ),
-                                Row(
-                                  children: [
-                                    IconButton(
-                                      onPressed: () => decrementValue('Floor on It is Located'),
-                                      icon: Icon(Icons.remove),
-                                    ),
-                                    IconButton(
-                                      onPressed: () => incrementValue('Floor on It is Located'),
-                                      icon: Icon(Icons.add),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                                  Row(
+                                    children: [
+                                      IconButton(
+                                        onPressed: () => decrementValue('Floor on It is Located'),
+                                        icon: Icon(Icons.remove),
+                                      ),
+                                      IconButton(
+                                        onPressed: () => incrementValue('Floor on It is Located'),
+                                        icon: Icon(Icons.add),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text('Number of Floors: ', style: TextStyle(fontWeight: FontWeight.bold)),
-                        SizedBox(width: 8.0), // Ekledim
-                        Expanded(
-                          child: Container(
-                            height: 40.0, // Sabit yükseklik
-                            margin: EdgeInsets.only(bottom: 8.0, left: 50.0),
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Color(0xFFFFE724C), width: 4.0),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                  child: Center(
-                                    child: Text(
-                                      '$countOfFloor',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        fontSize: 18.0, // Yazı boyutunu ayarladım
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            'Number of Floors: ',
+                            style: labelTextStyle,
+                          ),
+                          SizedBox(width: 8.0), // Ekledim
+                          Expanded(
+                            child: Container(
+                              height: 40.0, // Sabit yükseklik
+                              margin: EdgeInsets.only(bottom: 8.0, left: 57.0),
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Color(0xFFFFE724C), width: 1.0),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    child: Center(
+                                      child: Text(
+                                        '$countOfFloor',
+                                        textAlign: TextAlign.center,
+                                        style: labelTextStyle,
                                       ),
                                     ),
                                   ),
-                                ),
-                                Row(
-                                  children: [
-                                    IconButton(
-                                      onPressed: () => decrementValue('Number of Floors'),
-                                      icon: Icon(Icons.remove),
-                                    ),
-                                    IconButton(
-                                      onPressed: () => incrementValue('Number of Floors'),
-                                      icon: Icon(Icons.add),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                                  Row(
+                                    children: [
+                                      IconButton(
+                                        onPressed: () => decrementValue('Number of Floors'),
+                                        icon: Icon(Icons.remove),
+                                      ),
+                                      IconButton(
+                                        onPressed: () => incrementValue('Number of Floors'),
+                                        icon: Icon(Icons.add),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-
-
-
-
-              ],
-            ),
-            ],
-              )
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             );
           }
+
+
           else if (index == 2) { // This is the 5th step where you want to add the additionalFeatures widget
             return Step(
               isActive: true,
@@ -726,9 +764,9 @@ class _MyStepperState extends State<MyStepper> {
               content: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  const Text(
                     'Facade Selection',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFFFE724C)),
                   ),
                   Wrap(
                     spacing: 5.0,
@@ -736,76 +774,125 @@ class _MyStepperState extends State<MyStepper> {
                     children: List<Widget>.generate(
                       facade.length,
                           (int index) {
-                        return FilterChip(
-                          label: Text(facade[index]),
-                          selected: selectedFacade.contains(facade[index]),
-                          onSelected: (bool selected) {
-                            setState(() {
-                              if (selected) {
-                                selectedFacade.add(facade[index]);
-                              } else {
-                                selectedFacade.remove(facade[index]);
-                              }
-                            });
-                          },
+                        return Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 5.0),
+                          child: FilterChip(
+                            label: Text(facade[index], style: const TextStyle(fontWeight: FontWeight.w400)),
+                            selected: selectedFacade.contains(facade[index]),
+                            onSelected: (bool selected) {
+                              setState(() {
+                                if (selected) {
+                                  selectedFacade.add(facade[index]);
+                                } else {
+                                  selectedFacade.remove(facade[index]);
+                                }
+                              });
+                            },
+                            // Çerçeve rengini değiştirmek için Material widget'ını kullanın
+                            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            backgroundColor: Colors.transparent,
+                            shape: RoundedRectangleBorder(
+                              side: BorderSide(
+                                color: selectedFacade.contains(facade[index])
+                                    ? lightColorScheme.primary // Seçili olduğunda çerçeve rengi
+                                    : Colors.black, // Seçili olmadığında çerçeve rengi
+                              ),
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                          ),
                         );
                       },
                     ).toList(),
                   ),
+
                   SizedBox(height: 10),
-                  Text(
+                  const Text(
                     'Landscape Selection',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFFFE724C)),
                   ),
                   Wrap(
-                    spacing: 5.0,
-                    runSpacing: 3.0,
+                    spacing: 5.0, // Seçenekler arasındaki yatay boşluk
+                    runSpacing: 3.0, // Seçenekler arasındaki dikey boşluk
                     children: List<Widget>.generate(
                       landscapeChoices.length,
                           (int index) {
-                        return FilterChip(
-                          label: Text(landscapeChoices[index]),
-                          selected: selectedLandscape.contains(landscapeChoices[index]),
-                          onSelected: (bool selected) {
-                            setState(() {
-                              if (selected) {
-                                selectedLandscape.add(landscapeChoices[index]);
-                              } else {
-                                selectedLandscape.remove(landscapeChoices[index]);
-                              }
-                            });
-                          },
+                        return Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 5.0),
+                          child: FilterChip(
+                            label: Padding(
+                              padding: EdgeInsets.all(1.0),
+                              child: Text(landscapeChoices[index], style: const TextStyle(fontWeight: FontWeight.w400)),
+                            ),
+                            selected: selectedLandscape.contains(landscapeChoices[index]),
+                            onSelected: (bool selected) {
+                              setState(() {
+                                if (selected) {
+                                  selectedLandscape.add(landscapeChoices[index]);
+                                } else {
+                                  selectedLandscape.remove(landscapeChoices[index]);
+                                }
+                              });
+                            },
+                            backgroundColor: Colors.transparent,
+                            checkmarkColor: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              side: BorderSide(
+                                color: selectedLandscape.contains(landscapeChoices[index])
+                                    ? lightColorScheme.primary // Seçili olduğunda çerçeve rengi
+                                    : Colors.black, // Seçili olmadığında çerçeve rengi
+                              ),
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                          ),
                         );
                       },
                     ).toList(),
                   ),
+
                   SizedBox(height: 10),
-                  Text(
+                  const Text(
                     'Heating System Selection',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFFFE724C)),
                   ),
                   Wrap(
-                    spacing: 5.0,
-                    runSpacing: 3.0,
+                    spacing: 5.0, // Seçenekler arasındaki yatay boşluk
+                    runSpacing: 3.0, // Seçenekler arasındaki dikey boşluk
                     children: List<Widget>.generate(
                       heatingSystemChoices.length,
                           (int index) {
-                        return FilterChip(
-                          label: Text(heatingSystemChoices[index]),
-                          selected: selectedHeatingSystem == heatingSystemChoices[index],
-                          onSelected: (bool selected) {
-                            setState(() {
-                              if (selected) {
-                                selectedHeatingSystem = heatingSystemChoices[index];
-                              } else {
-                                selectedHeatingSystem = '';
-                              }
-                            });
-                          },
+                        return Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 5.0),
+                          child: FilterChip(
+                            label: Padding(
+                              padding: EdgeInsets.all(1.0),
+                              child: Text(heatingSystemChoices[index], style: const TextStyle(fontWeight: FontWeight.w400)),
+                            ),
+                            selected: selectedHeatingSystem == heatingSystemChoices[index],
+                            onSelected: (bool selected) {
+                              setState(() {
+                                if (selected) {
+                                  selectedHeatingSystem = heatingSystemChoices[index];
+                                } else {
+                                  selectedHeatingSystem = '';
+                                }
+                              });
+                            },
+                            backgroundColor: Colors.transparent,
+                            checkmarkColor: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              side: BorderSide(
+                                color: selectedHeatingSystem == heatingSystemChoices[index]
+                                    ? lightColorScheme.primary // Seçili olduğunda çerçeve rengi
+                                    : Colors.black, // Seçili olmadığında çerçeve rengi
+                              ),
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                          ),
                         );
                       },
                     ).toList(),
                   ),
+
                 ],
               ),
             );
@@ -834,28 +921,31 @@ class _MyStepperState extends State<MyStepper> {
             return Step(
               isActive: true,
               state: _currentStep == 3 ? StepState.editing : StepState.indexed,
-              title: Text(''),
+              title: const Text(''),
               content: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Padding(
+                    const Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Text(
                         'Opportunities:',
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFFE724C), fontSize: 18),
                       ),
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: oppurtunities
-                          .map((oppurtunity) => CheckboxListTile(
-                        title: Text(oppurtunity),
-                        value: SelectedOppurtunities.contains(oppurtunity),
-                        activeColor: lightColorScheme.primary,
-                        onChanged: (value) {
-                          toggleoppurtunity(oppurtunity);
-                        },
+                          .map((oppurtunity) => Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 0.0), // Boşluk eklendi
+                        child: CheckboxListTile(
+                          title: Text(oppurtunity, style: const TextStyle(fontWeight: FontWeight.w400)),
+                          value: SelectedOppurtunities.contains(oppurtunity),
+                          activeColor: lightColorScheme.primary,
+                          onChanged: (value) {
+                            toggleoppurtunity(oppurtunity);
+                          },
+                        ),
                       ))
                           .toList(),
                     ),
@@ -864,6 +954,7 @@ class _MyStepperState extends State<MyStepper> {
               ),
             );
           }
+
 
         }),
       ),
