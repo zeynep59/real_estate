@@ -3,6 +3,8 @@ import 'package:icons_plus/icons_plus.dart';
 import 'package:real_estate/screens/signup.dart';
 import 'package:real_estate/widgets/custom_scaffold.dart';
 import '../theme/theme.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:real_estate/firebase_auth/firebase_auth_services.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -14,6 +16,16 @@ class SignInScreen extends StatefulWidget {
 class _SignInScreenState extends State<SignInScreen> {
   final _formSignInKey = GlobalKey<FormState>();
   bool rememberPassword = true;
+  final FirebaseAuthService _auth = FirebaseAuthService();
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
@@ -54,6 +66,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         height: 40.0,
                       ),
                       TextFormField(
+                        controller: _emailController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter Email';
@@ -84,6 +97,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         height: 25.0,
                       ),
                       TextFormField(
+                        controller: _passwordController,
                         obscureText: true,
                         obscuringCharacter: '*',
                         validator: (value) {
@@ -155,20 +169,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         width: double.infinity,
                         child: ElevatedButton(
                           onPressed: () {
-                            if (_formSignInKey.currentState!.validate() &&
-                                rememberPassword) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text('Processing Data'),
-                                ),
-                              );
-                            } else if (!rememberPassword) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                    content: Text(
-                                        'Please agree to the processing of personal data')),
-                              );
-                            }
+                            _signIn();
                           },
                           child: const Text('Sign In'),
                         ),
@@ -191,7 +192,7 @@ class _SignInScreenState extends State<SignInScreen> {
                               horizontal: 10,
                             ),
                             child: Text(
-                              'Sign up with',
+                              'Sign in with',
                               style: TextStyle(
                                 color: Colors.black45,
                               ),
@@ -260,5 +261,16 @@ class _SignInScreenState extends State<SignInScreen> {
         ],
       ),
     );
+  }
+
+  void _signIn() async {
+    String email = _emailController.text;
+    String password = _passwordController.text;
+    try {
+      await _auth.signInWithEmailAndPassword(email, password);
+      Navigator.pushNamed(context, '/map_page');
+    } catch (e) {
+      print("Error signing in: ${e.toString()}");
+    }
   }
 }
