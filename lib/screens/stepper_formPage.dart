@@ -12,7 +12,7 @@ class StepperPage extends StatelessWidget {
           canvasColor: Colors.white,
           colorScheme: Theme.of(context).colorScheme.copyWith(primary: lightColorScheme.primary ),
           //primaryColor: lightColorScheme.primary, // Stepper'ın başlık rengi
-          textTheme: TextTheme(
+          textTheme: const TextTheme(
             //subtitle1: TextStyle(color: lightColorScheme.primary), // Adım numaralarının rengi
             //bodyText2: TextStyle(color: lightColorScheme.primary), // Adım başlıklarının rengi
           ),
@@ -74,6 +74,9 @@ class _MyStepperState extends State<MyStepper> {
   List<String> selectedFacade = [];
   List<String> selectedLandscape = [];
   String selectedHeatingSystem = '';
+  bool valueAndRent = false;
+  int value1 = 1780;
+  int value2 = 1980;
   List<String> oppurtunities = [
     'On the motorway',
     'On the Street',
@@ -214,7 +217,7 @@ class _MyStepperState extends State<MyStepper> {
         currentStep: _currentStep,
 
         onStepContinue: () {
-          if (_currentStep < 3) {
+          if (_currentStep < 4) {
             setState(() => _currentStep++);
           }
         },
@@ -897,6 +900,261 @@ class _MyStepperState extends State<MyStepper> {
               ),
             );
           }
+          else if (index == 4) {
+            return Step(
+              isActive: true,
+              state: _currentStep == 4 ? StepState.editing : StepState.indexed,
+              title: const Text(''),
+                /*content: Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage("assets/images/background.jpg"), // Arka plan fotoğrafı
+                      fit: BoxFit.cover,
+                    ),
+                  ),*/
+              content: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 20), // Bir boşluk ekleyin
+                  Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          'Value',
+                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFFFE724C)),
+                        ),
+                        Transform.scale(
+                          scale: 0.9, // Boyut oranı, istediğiniz değeri ayarlayabilirsiniz
+                          child: Switch(
+                            value: valueAndRent,
+                            onChanged: (bool value) {
+                              setState(() {
+                                valueAndRent = value;
+                                // Switch değiştiğinde değerlerin güncellenmesi
+                                if (valueAndRent) {
+                                  value1 = 2000;
+                                  value2 = 3000;
+                                } else {
+                                  value1 = 1780;
+                                  value2 = 1980;
+                                }
+                              });
+                            },
+                            activeColor: lightColorScheme.primary,
+                            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap, // Switch boyutunu sadece buton büyüklüğü kadar yapar
+                          ),
+                        ),
+                        const Text(
+                          'Rent',
+                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFFFE724C)),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 20), // Bir boşluk ekleyin
+                  const Row(
+                    children: [
+                      Icon(
+                        Icons.location_on,
+                        color: Colors.red, // İstediğiniz renk
+                        size: 24, // İstediğiniz boyut
+                      ),
+                      SizedBox(width: 10), // Araya bir boşluk ekleyin
+                      Text(
+                        'Location',
+                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFFFE724C)),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 5), // Bir boşluk ekleyin
+                  Center(
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const SizedBox(width: 5), // Araya bir boşluk ekleyin
+                            Container(
+                              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.grey.withOpacity(0)),
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              child: Text(
+                                '${value1}₺',
+                                style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold, color: Colors.black),
+                              ),
+                            ),
+                            const SizedBox(width: 5), // Araya bir boşluk ekleyin
+                            const Text(
+                              '-',
+                              style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold, color: Colors.black),
+                            ),
+                            const SizedBox(width: 5), // Araya bir boşluk ekleyin
+                            Container(
+                              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.grey.withOpacity(0)),
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              child: Text(
+                                '${value2}₺',
+                                style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold, color: Colors.black),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const SizedBox(width: 5), // Araya bir boşluk ekleyin
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.grey.withOpacity(0)),
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              child: const Column(
+                                children: [
+                                  Text(
+                                    '0-3 Ay Tahmini Elden',
+                                    style: TextStyle(fontSize: 10, fontWeight: FontWeight.normal, color: Colors.black),
+                                  ),
+                                  Text(
+                                    ' Çıkarma Süresi',
+                                    style: TextStyle(fontSize: 10, fontWeight: FontWeight.normal, color: Colors.black),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(width: 5), // Araya bir boşluk ekleyin
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.grey.withOpacity(0)),
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              child: const Column(
+                                children: [
+                                  Text(
+                                    '6-12 Ay Tahmini Elden',
+                                    style: TextStyle(fontSize: 10, fontWeight: FontWeight.normal, color: Colors.black),
+                                  ),
+                                  Text(
+                                    ' Çıkarma Süresi',
+                                    style: TextStyle(fontSize: 10, fontWeight: FontWeight.normal, color: Colors.black),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 20), // Bir boşluk ekleyin
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              height: 150,
+                              width: 300,
+                              padding: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                color: const Color(0xFFFFC529),
+                                border: Border.all(color: Color(0xFFD7D7D7).withOpacity(1)),
+                                borderRadius: BorderRadius.circular(35),
+                              ),
+                              child: const Column(
+                                children: [
+                                  SizedBox(height: 15),
+                                  Text(
+                                    'First Box Text 1',
+                                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                                  ),
+                                  SizedBox(height: 15),
+                                  Text(
+                                    'First Box Text 2',
+                                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                                  ),
+                                  SizedBox(height: 15),
+                                  Text(
+                                    'First Box Text 3',
+                                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: 20), // Araya bir boşluk ekleyin
+                            Container(
+                              height: 150,
+                              width: 300,
+                              padding: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                color: const Color(0xFFFFC529),
+                                border: Border.all(color: Color(0xFFD7D7D7).withOpacity(1)),
+                                borderRadius: BorderRadius.circular(35),
+                              ),
+                              child: const Column(
+                                children: [
+                                  SizedBox(height: 15),
+                                  Text(
+                                    'Second Box Text 1',
+                                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                                  ),
+                                  SizedBox(height: 15),
+                                  Text(
+                                    'Second Box Text 2',
+                                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: 20), // Araya bir boşluk ekleyin
+                            Container(
+                              width: 300,
+                              height: 150,
+                              padding: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                color: const Color(0xFFFE724C),
+                                border: Border.all(color: Color(0xFFD7D7D7).withOpacity(1)),
+                                borderRadius: BorderRadius.circular(35),
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const Text(
+                                    'Third Box Text 1',
+                                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  const Expanded(
+                                    child: TextField(
+                                      textAlign: TextAlign.center,
+                                      decoration: InputDecoration(
+                                        hintText: '_ _ _',
+                                        hintStyle: TextStyle(color: Colors.black),
+                                        border: InputBorder.none,
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Text(
+                                    '${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}',
+                                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+                //),
+            );
+          }
+
           else if(index == 0){
             return Step(
               isActive: true,
