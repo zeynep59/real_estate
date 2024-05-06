@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:real_estate/widgets/search_field.dart';
 import 'package:real_estate/widgets/select_category.dart';
+
+import '../sidebar/sidebar.dart';
+
 class HomeScreen extends StatefulWidget{
   const HomeScreen({Key? key}): super(key: key);
   @override
@@ -10,6 +13,7 @@ class _HomeScreenState extends State<HomeScreen>{
   @override
   Widget build(BuildContext context){
     return Scaffold(
+      drawer: const DrawerScreen(),
       appBar: AppBar(
         elevation: 0.0,
         backgroundColor: Colors.white,
@@ -19,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen>{
             Icons.location_on,
             color: Colors.blue.shade600,
           ),
-          Text(
+          const Text(
             "Tokyo, Japan",
             style: TextStyle(
               color: Colors.black,
@@ -34,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen>{
         ],
       ),
       backgroundColor: Colors.white,
-      body:SingleChildScrollView(
+      body:const SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(16.0),
           child: Column(
