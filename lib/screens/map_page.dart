@@ -24,6 +24,7 @@ class _MapPageState extends State<MapPage> {
     HomeScreen(),
     MyStepper(),
   ];
+
   @override
   void initState() {
     super.initState();
@@ -46,79 +47,64 @@ class _MapPageState extends State<MapPage> {
                   icon: BitmapDescriptor.defaultMarker,
                   position: _currentP!,
                 ),
-                // Marker(
-                //   markerId: MarkerId("_sourceLocation"),
-                //   icon: BitmapDescriptor.defaultMarker,
-                //   position: _pGooglePlex,
-                // ),
-                // Marker(
-                //   markerId: MarkerId("_destinationLocation"),
-                //   icon: BitmapDescriptor.defaultMarker,
-                //   position: _pApplePark,
-                // ),
               },
             ),
       bottomNavigationBar: GNav(
-          gap: 8,
-          backgroundColor: Color(0xFF272D2F),
-          color: Colors.white,
-          padding: EdgeInsets.all(16),
-          tabBackgroundColor: Colors.grey.shade800,
-          activeColor: Colors.white,
-          tabs: const [
-            GButton(
-              icon: Icons.home,
-              text: "Home",
-            ),
-            GButton(
-              icon: Icons.search,
-              text: "Search",
-            ),
-            GButton(
-              icon: Icons.favorite_border,
-              text: "Favorites",
-            ),
-            GButton(
-              icon: Icons.settings,
-              text: "Settings",
-            ),
-          ],
-          selectedIndex: _selectedIndex,
-          onTabChange: (index) {
-            setState(() {
-              _selectedIndex = index;
-            });
-          }),
+        gap: 8,
+        backgroundColor: Color(0xFF272D2F),
+        color: Colors.white,
+        padding: EdgeInsets.all(16),
+        tabBackgroundColor: Colors.grey.shade800,
+        activeColor: Colors.white,
+        tabs: const [
+          GButton(
+            icon: Icons.home,
+            text: "Home",
+          ),
+          GButton(
+            icon: Icons.search,
+            text: "Search",
+          ),
+          GButton(
+            icon: Icons.favorite_border,
+            text: "Favorites",
+          ),
+          GButton(
+            icon: Icons.settings,
+            text: "Settings",
+          ),
+        ],
+        selectedIndex: _selectedIndex,
+        onTabChange: (index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+          _navigateToScreen(index);
+        },
+      ),
     );
   }
 
   Future<void> getLocationUpdates() async {
-    bool _serviceEnabled;
-    PermissionStatus _permissionGranted;
+    // Code for getting location updates
+  }
 
-    _serviceEnabled = await _locationController.serviceEnabled();
-    if (_serviceEnabled) {
-      _serviceEnabled = await _locationController.requestService();
-    } else {
-      return;
+  void _navigateToScreen(int index) {
+    switch (index) {
+      case 0:
+        Navigator.pushReplacementNamed(context, '/map_page');
+        break;
+      case 1:
+        Navigator.pushReplacementNamed(context, '/form_page');
+        break;
+      case 2:
+        Navigator.pushReplacementNamed(context, '/home_page');
+        break;
+      case 3:
+        Navigator.pushReplacementNamed(context, '/sign_up');
+        break;
+      default:
+        break;
     }
-    _permissionGranted = await _locationController.hasPermission();
-    if (_permissionGranted == PermissionStatus.denied) {
-      _permissionGranted = await _locationController.requestPermission();
-      if (_permissionGranted == PermissionStatus.granted) {
-        return;
-      }
-    }
-    _locationController.onLocationChanged
-        .listen((LocationData currentLocation) {
-      if (currentLocation.latitude != null &&
-          currentLocation.longitude != null) {
-        setState(() {
-          _currentP =
-              LatLng(currentLocation.latitude!, currentLocation.longitude!);
-        });
-        print(_currentP);
-      }
-    });
   }
 }
