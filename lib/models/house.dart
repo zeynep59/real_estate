@@ -40,22 +40,22 @@ class House {
 
   House.fromJson(Map<String, Object?> json)
       : this(
-          address: json['address'] as Address,
+          address: json['address']! as Address,
           squaremeter: json['squaremeter']! as double,
-          numberOfRooms: json['numberOfRooms'] as int,
-          numberOfHalls: json['numberOfHalls'] as int,
-          numberOfBaths: json['numberOfBaths'] as int,
-          numberOfFloors: json['numberOfFloors'] as int,
-          buildingAge: json['buildingAge'] as int,
-          floorOn: json['floorOn'] as int,
-          grossArea: json['grossArea'] as double,
-          terraceArea: json['terraceArea'] as double,
-          price: json['price'] as double,
+          numberOfRooms: json['numberOfRooms']! as int,
+          numberOfHalls: json['numberOfHalls']! as int,
+          numberOfBaths: json['numberOfBaths']! as int,
+          numberOfFloors: json['numberOfFloors']! as int,
+          buildingAge: json['buildingAge']! as int,
+          floorOn: json['floorOn']! as int,
+          grossArea: json['grossArea']! as double,
+          terraceArea: json['terraceArea']! as double,
+          price: json['price']! as double,
           id: json['id'] as Object,
-          facade: json['facade'] as String,
-          landscape: json['landscape'] as String,
-          heating: json['heating'] as String,
-          opportunities: json['opportunities'] as String,
+          facade: json['facade']! as String,
+          landscape: json['landscape']! as String,
+          heating: json['heating']! as String,
+          opportunities: json['opportunities']! as String,
         );
 
   House copyWith({
