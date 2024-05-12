@@ -10,6 +10,7 @@ import 'package:real_estate/screens/map_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:real_estate/screens/stepper_formPage.dart';
 import 'package:real_estate/screens/stepper_formPage.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
