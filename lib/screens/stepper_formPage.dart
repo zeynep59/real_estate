@@ -10,12 +10,14 @@ class StepperPage extends StatelessWidget {
       home: Theme(
         data: ThemeData(
           canvasColor: Colors.white,
-          colorScheme: Theme.of(context).colorScheme.copyWith(primary: lightColorScheme.primary ),
+          colorScheme: Theme.of(context)
+              .colorScheme
+              .copyWith(primary: lightColorScheme.primary),
           //primaryColor: lightColorScheme.primary, // Stepper'ın başlık rengi
           textTheme: const TextTheme(
-            //subtitle1: TextStyle(color: lightColorScheme.primary), // Adım numaralarının rengi
-            //bodyText2: TextStyle(color: lightColorScheme.primary), // Adım başlıklarının rengi
-          ),
+              //subtitle1: TextStyle(color: lightColorScheme.primary), // Adım numaralarının rengi
+              //bodyText2: TextStyle(color: lightColorScheme.primary), // Adım başlıklarının rengi
+              ),
         ),
         child: MyStepper(),
       ),
@@ -97,7 +99,6 @@ class _MyStepperState extends State<MyStepper> {
 
   List<String> SelectedOppurtunities = [];
 
-
   void initState() {
     super.initState();
     structureStatus = 'Well Maintained/Renovated';
@@ -114,6 +115,7 @@ class _MyStepperState extends State<MyStepper> {
       });
     }
   }
+
   void incrementValue(String field) {
     setState(() {
       switch (field) {
@@ -127,10 +129,10 @@ class _MyStepperState extends State<MyStepper> {
           countOfBath++;
           break;
         case 'Gross Area':
-          grossArea+=10;
+          grossArea += 10;
           break;
         case 'Terrace Area':
-          terraceArea+=10;
+          terraceArea += 10;
           break;
         case 'Building Age':
           buildingAge++;
@@ -175,6 +177,7 @@ class _MyStepperState extends State<MyStepper> {
       }
     });
   }
+
   void toggleFacade(String facade) {
     if (selectedFacade.contains(facade)) {
       setState(() {
@@ -204,18 +207,18 @@ class _MyStepperState extends State<MyStepper> {
       selectedHeatingSystem = heating;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:  Colors.white,
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(''),
-        backgroundColor:  Colors.white,
+        backgroundColor: Colors.white,
       ),
       body: Stepper(
         type: StepperType.horizontal,
         currentStep: _currentStep,
-
         onStepContinue: () {
           if (_currentStep < 4) {
             setState(() => _currentStep++);
@@ -227,7 +230,8 @@ class _MyStepperState extends State<MyStepper> {
           }
         },
         steps: List<Step>.generate(5, (index) {
-          if (index == 1) { // This is the second step
+          if (index == 1) {
+            // This is the second step
             TextStyle labelTextStyle = const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w300,
@@ -268,7 +272,7 @@ class _MyStepperState extends State<MyStepper> {
                     child: TextFormField(
                       controller: countryController,
                       decoration: InputDecoration(
-                        labelText: 'County',
+                        labelText: 'Country',
                         labelStyle: labelTextStyle,
                         border: InputBorder.none,
                       ),
@@ -328,7 +332,8 @@ class _MyStepperState extends State<MyStepper> {
                     'State of Use:',
                     style: labelTextStyle.copyWith(
                       fontWeight: FontWeight.bold,
-                      color: const Color(0xFFFE724C), // Yeni renk burada belirtiliyor
+                      color: const Color(
+                          0xFFFE724C), // Yeni renk burada belirtiliyor
                     ),
                   ),
                   Column(
@@ -411,10 +416,12 @@ class _MyStepperState extends State<MyStepper> {
                               height: 40.0, // Sabit yükseklik
                               margin: EdgeInsets.only(bottom: 8.0, left: 52.0),
                               decoration: BoxDecoration(
-                                border: Border.all(color: Color(0xFFFFE724C), width: 1.0),
+                                border: Border.all(
+                                    color: Color(0xFFFFE724C), width: 1.0),
                               ),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Expanded(
                                     child: Center(
@@ -428,11 +435,13 @@ class _MyStepperState extends State<MyStepper> {
                                   Row(
                                     children: [
                                       IconButton(
-                                        onPressed: () => decrementValue('Number of Rooms'),
+                                        onPressed: () =>
+                                            decrementValue('Number of Rooms'),
                                         icon: Icon(Icons.remove),
                                       ),
                                       IconButton(
-                                        onPressed: () => incrementValue('Number of Rooms'),
+                                        onPressed: () =>
+                                            incrementValue('Number of Rooms'),
                                         icon: Icon(Icons.add),
                                       ),
                                     ],
@@ -455,10 +464,12 @@ class _MyStepperState extends State<MyStepper> {
                               height: 40.0, // Sabit yükseklik
                               margin: EdgeInsets.only(bottom: 8.0, left: 66.0),
                               decoration: BoxDecoration(
-                                border: Border.all(color: Color(0xFFFFE724C), width: 1.0),
+                                border: Border.all(
+                                    color: Color(0xFFFFE724C), width: 1.0),
                               ),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Expanded(
                                     child: Center(
@@ -472,11 +483,13 @@ class _MyStepperState extends State<MyStepper> {
                                   Row(
                                     children: [
                                       IconButton(
-                                        onPressed: () => decrementValue('Number of Halls'),
+                                        onPressed: () =>
+                                            decrementValue('Number of Halls'),
                                         icon: Icon(Icons.remove),
                                       ),
                                       IconButton(
-                                        onPressed: () => incrementValue('Number of Halls'),
+                                        onPressed: () =>
+                                            incrementValue('Number of Halls'),
                                         icon: Icon(Icons.add),
                                       ),
                                     ],
@@ -499,10 +512,12 @@ class _MyStepperState extends State<MyStepper> {
                               height: 40.0, // Sabit yükseklik
                               margin: EdgeInsets.only(bottom: 8.0, left: 22.0),
                               decoration: BoxDecoration(
-                                border: Border.all(color: Color(0xFFFFE724C), width: 1.0),
+                                border: Border.all(
+                                    color: Color(0xFFFFE724C), width: 1.0),
                               ),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Expanded(
                                     child: Center(
@@ -516,11 +531,13 @@ class _MyStepperState extends State<MyStepper> {
                                   Row(
                                     children: [
                                       IconButton(
-                                        onPressed: () => decrementValue('Number of Bathrooms'),
+                                        onPressed: () => decrementValue(
+                                            'Number of Bathrooms'),
                                         icon: Icon(Icons.remove),
                                       ),
                                       IconButton(
-                                        onPressed: () => incrementValue('Number of Bathrooms'),
+                                        onPressed: () => incrementValue(
+                                            'Number of Bathrooms'),
                                         icon: Icon(Icons.add),
                                       ),
                                     ],
@@ -543,10 +560,12 @@ class _MyStepperState extends State<MyStepper> {
                               height: 40.0, // Sabit yükseklik
                               margin: EdgeInsets.only(bottom: 8.0, left: 104.0),
                               decoration: BoxDecoration(
-                                border: Border.all(color: Color(0xFFFFE724C), width: 1.0),
+                                border: Border.all(
+                                    color: Color(0xFFFFE724C), width: 1.0),
                               ),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Expanded(
                                     child: Center(
@@ -560,11 +579,13 @@ class _MyStepperState extends State<MyStepper> {
                                   Row(
                                     children: [
                                       IconButton(
-                                        onPressed: () => decrementValue('Gross Area'),
+                                        onPressed: () =>
+                                            decrementValue('Gross Area'),
                                         icon: Icon(Icons.remove),
                                       ),
                                       IconButton(
-                                        onPressed: () => incrementValue('Gross Area'),
+                                        onPressed: () =>
+                                            incrementValue('Gross Area'),
                                         icon: Icon(Icons.add),
                                       ),
                                     ],
@@ -587,10 +608,12 @@ class _MyStepperState extends State<MyStepper> {
                               height: 40.0, // Sabit yükseklik
                               margin: EdgeInsets.only(bottom: 8.0, left: 92.0),
                               decoration: BoxDecoration(
-                                border: Border.all(color: Color(0xFFFFE724C), width: 1.0),
+                                border: Border.all(
+                                    color: Color(0xFFFFE724C), width: 1.0),
                               ),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Expanded(
                                     child: Center(
@@ -604,11 +627,13 @@ class _MyStepperState extends State<MyStepper> {
                                   Row(
                                     children: [
                                       IconButton(
-                                        onPressed: () => decrementValue('Terrace Area'),
+                                        onPressed: () =>
+                                            decrementValue('Terrace Area'),
                                         icon: Icon(Icons.remove),
                                       ),
                                       IconButton(
-                                        onPressed: () => incrementValue('Terrace Area'),
+                                        onPressed: () =>
+                                            incrementValue('Terrace Area'),
                                         icon: Icon(Icons.add),
                                       ),
                                     ],
@@ -631,10 +656,12 @@ class _MyStepperState extends State<MyStepper> {
                               height: 40.0, // Sabit yükseklik
                               margin: EdgeInsets.only(bottom: 8.0, left: 93.0),
                               decoration: BoxDecoration(
-                                border: Border.all(color: Color(0xFFFFE724C), width: 1.0),
+                                border: Border.all(
+                                    color: Color(0xFFFFE724C), width: 1.0),
                               ),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Expanded(
                                     child: Center(
@@ -648,11 +675,13 @@ class _MyStepperState extends State<MyStepper> {
                                   Row(
                                     children: [
                                       IconButton(
-                                        onPressed: () => decrementValue('Building Age'),
+                                        onPressed: () =>
+                                            decrementValue('Building Age'),
                                         icon: Icon(Icons.remove),
                                       ),
                                       IconButton(
-                                        onPressed: () => incrementValue('Building Age'),
+                                        onPressed: () =>
+                                            incrementValue('Building Age'),
                                         icon: Icon(Icons.add),
                                       ),
                                     ],
@@ -675,10 +704,12 @@ class _MyStepperState extends State<MyStepper> {
                               height: 40.0, // Sabit yükseklik
                               margin: EdgeInsets.only(bottom: 8.0, left: 30.0),
                               decoration: BoxDecoration(
-                                border: Border.all(color: Color(0xFFFFE724C), width: 1.0),
+                                border: Border.all(
+                                    color: Color(0xFFFFE724C), width: 1.0),
                               ),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Expanded(
                                     child: Center(
@@ -692,11 +723,13 @@ class _MyStepperState extends State<MyStepper> {
                                   Row(
                                     children: [
                                       IconButton(
-                                        onPressed: () => decrementValue('Floor on It is Located'),
+                                        onPressed: () => decrementValue(
+                                            'Floor on It is Located'),
                                         icon: Icon(Icons.remove),
                                       ),
                                       IconButton(
-                                        onPressed: () => incrementValue('Floor on It is Located'),
+                                        onPressed: () => incrementValue(
+                                            'Floor on It is Located'),
                                         icon: Icon(Icons.add),
                                       ),
                                     ],
@@ -719,10 +752,12 @@ class _MyStepperState extends State<MyStepper> {
                               height: 40.0, // Sabit yükseklik
                               margin: EdgeInsets.only(bottom: 8.0, left: 57.0),
                               decoration: BoxDecoration(
-                                border: Border.all(color: Color(0xFFFFE724C), width: 1.0),
+                                border: Border.all(
+                                    color: Color(0xFFFFE724C), width: 1.0),
                               ),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Expanded(
                                     child: Center(
@@ -736,11 +771,13 @@ class _MyStepperState extends State<MyStepper> {
                                   Row(
                                     children: [
                                       IconButton(
-                                        onPressed: () => decrementValue('Number of Floors'),
+                                        onPressed: () =>
+                                            decrementValue('Number of Floors'),
                                         icon: Icon(Icons.remove),
                                       ),
                                       IconButton(
-                                        onPressed: () => incrementValue('Number of Floors'),
+                                        onPressed: () =>
+                                            incrementValue('Number of Floors'),
                                         icon: Icon(Icons.add),
                                       ),
                                     ],
@@ -756,10 +793,8 @@ class _MyStepperState extends State<MyStepper> {
                 ],
               ),
             );
-          }
-
-
-          else if (index == 2) { // This is the 5th step where you want to add the additionalFeatures widget
+          } else if (index == 2) {
+            // This is the 5th step where you want to add the additionalFeatures widget
             return Step(
               isActive: true,
               state: _currentStep == 2 ? StepState.editing : StepState.indexed,
@@ -769,18 +804,23 @@ class _MyStepperState extends State<MyStepper> {
                 children: [
                   const Text(
                     'Facade Selection',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFFFE724C)),
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFFFE724C)),
                   ),
                   Wrap(
                     spacing: 5.0,
                     runSpacing: 3.0,
                     children: List<Widget>.generate(
                       facade.length,
-                          (int index) {
+                      (int index) {
                         return Padding(
                           padding: EdgeInsets.symmetric(horizontal: 5.0),
                           child: FilterChip(
-                            label: Text(facade[index], style: const TextStyle(fontWeight: FontWeight.w400)),
+                            label: Text(facade[index],
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.w400)),
                             selected: selectedFacade.contains(facade[index]),
                             onSelected: (bool selected) {
                               setState(() {
@@ -792,13 +832,16 @@ class _MyStepperState extends State<MyStepper> {
                               });
                             },
                             // Çerçeve rengini değiştirmek için Material widget'ını kullanın
-                            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            materialTapTargetSize:
+                                MaterialTapTargetSize.shrinkWrap,
                             backgroundColor: Colors.transparent,
                             shape: RoundedRectangleBorder(
                               side: BorderSide(
                                 color: selectedFacade.contains(facade[index])
-                                    ? lightColorScheme.primary // Seçili olduğunda çerçeve rengi
-                                    : Colors.black, // Seçili olmadığında çerçeve rengi
+                                    ? lightColorScheme
+                                        .primary // Seçili olduğunda çerçeve rengi
+                                    : Colors
+                                        .black, // Seçili olmadığında çerçeve rengi
                               ),
                               borderRadius: BorderRadius.circular(10.0),
                             ),
@@ -807,32 +850,39 @@ class _MyStepperState extends State<MyStepper> {
                       },
                     ).toList(),
                   ),
-
                   SizedBox(height: 10),
                   const Text(
                     'Landscape Selection',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFFFE724C)),
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFFFE724C)),
                   ),
                   Wrap(
                     spacing: 5.0, // Seçenekler arasındaki yatay boşluk
                     runSpacing: 3.0, // Seçenekler arasındaki dikey boşluk
                     children: List<Widget>.generate(
                       landscapeChoices.length,
-                          (int index) {
+                      (int index) {
                         return Padding(
                           padding: EdgeInsets.symmetric(horizontal: 5.0),
                           child: FilterChip(
                             label: Padding(
                               padding: EdgeInsets.all(1.0),
-                              child: Text(landscapeChoices[index], style: const TextStyle(fontWeight: FontWeight.w400)),
+                              child: Text(landscapeChoices[index],
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.w400)),
                             ),
-                            selected: selectedLandscape.contains(landscapeChoices[index]),
+                            selected: selectedLandscape
+                                .contains(landscapeChoices[index]),
                             onSelected: (bool selected) {
                               setState(() {
                                 if (selected) {
-                                  selectedLandscape.add(landscapeChoices[index]);
+                                  selectedLandscape
+                                      .add(landscapeChoices[index]);
                                 } else {
-                                  selectedLandscape.remove(landscapeChoices[index]);
+                                  selectedLandscape
+                                      .remove(landscapeChoices[index]);
                                 }
                               });
                             },
@@ -840,9 +890,12 @@ class _MyStepperState extends State<MyStepper> {
                             checkmarkColor: Colors.white,
                             shape: RoundedRectangleBorder(
                               side: BorderSide(
-                                color: selectedLandscape.contains(landscapeChoices[index])
-                                    ? lightColorScheme.primary // Seçili olduğunda çerçeve rengi
-                                    : Colors.black, // Seçili olmadığında çerçeve rengi
+                                color: selectedLandscape
+                                        .contains(landscapeChoices[index])
+                                    ? lightColorScheme
+                                        .primary // Seçili olduğunda çerçeve rengi
+                                    : Colors
+                                        .black, // Seçili olmadığında çerçeve rengi
                               ),
                               borderRadius: BorderRadius.circular(10.0),
                             ),
@@ -851,30 +904,36 @@ class _MyStepperState extends State<MyStepper> {
                       },
                     ).toList(),
                   ),
-
                   SizedBox(height: 10),
                   const Text(
                     'Heating System Selection',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFFFE724C)),
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFFFE724C)),
                   ),
                   Wrap(
                     spacing: 5.0, // Seçenekler arasındaki yatay boşluk
                     runSpacing: 3.0, // Seçenekler arasındaki dikey boşluk
                     children: List<Widget>.generate(
                       heatingSystemChoices.length,
-                          (int index) {
+                      (int index) {
                         return Padding(
                           padding: EdgeInsets.symmetric(horizontal: 5.0),
                           child: FilterChip(
                             label: Padding(
                               padding: EdgeInsets.all(1.0),
-                              child: Text(heatingSystemChoices[index], style: const TextStyle(fontWeight: FontWeight.w400)),
+                              child: Text(heatingSystemChoices[index],
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.w400)),
                             ),
-                            selected: selectedHeatingSystem == heatingSystemChoices[index],
+                            selected: selectedHeatingSystem ==
+                                heatingSystemChoices[index],
                             onSelected: (bool selected) {
                               setState(() {
                                 if (selected) {
-                                  selectedHeatingSystem = heatingSystemChoices[index];
+                                  selectedHeatingSystem =
+                                      heatingSystemChoices[index];
                                 } else {
                                   selectedHeatingSystem = '';
                                 }
@@ -884,9 +943,12 @@ class _MyStepperState extends State<MyStepper> {
                             checkmarkColor: Colors.white,
                             shape: RoundedRectangleBorder(
                               side: BorderSide(
-                                color: selectedHeatingSystem == heatingSystemChoices[index]
-                                    ? lightColorScheme.primary // Seçili olduğunda çerçeve rengi
-                                    : Colors.black, // Seçili olmadığında çerçeve rengi
+                                color: selectedHeatingSystem ==
+                                        heatingSystemChoices[index]
+                                    ? lightColorScheme
+                                        .primary // Seçili olduğunda çerçeve rengi
+                                    : Colors
+                                        .black, // Seçili olmadığında çerçeve rengi
                               ),
                               borderRadius: BorderRadius.circular(10.0),
                             ),
@@ -895,17 +957,15 @@ class _MyStepperState extends State<MyStepper> {
                       },
                     ).toList(),
                   ),
-
                 ],
               ),
             );
-          }
-          else if (index == 4) {
+          } else if (index == 4) {
             return Step(
               isActive: true,
               state: _currentStep == 4 ? StepState.editing : StepState.indexed,
               title: const Text(''),
-                /*content: Container(
+              /*content: Container(
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage("assets/images/background.jpg"), // Arka plan fotoğrafı
@@ -922,10 +982,14 @@ class _MyStepperState extends State<MyStepper> {
                       children: [
                         const Text(
                           'Value',
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFFFE724C)),
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xFFFE724C)),
                         ),
                         Transform.scale(
-                          scale: 0.9, // Boyut oranı, istediğiniz değeri ayarlayabilirsiniz
+                          scale:
+                              0.9, // Boyut oranı, istediğiniz değeri ayarlayabilirsiniz
                           child: Switch(
                             value: valueAndRent,
                             onChanged: (bool value) {
@@ -942,12 +1006,16 @@ class _MyStepperState extends State<MyStepper> {
                               });
                             },
                             activeColor: lightColorScheme.primary,
-                            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap, // Switch boyutunu sadece buton büyüklüğü kadar yapar
+                            materialTapTargetSize: MaterialTapTargetSize
+                                .shrinkWrap, // Switch boyutunu sadece buton büyüklüğü kadar yapar
                           ),
                         ),
                         const Text(
                           'Rent',
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFFFE724C)),
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xFFFE724C)),
                         ),
                       ],
                     ),
@@ -963,7 +1031,10 @@ class _MyStepperState extends State<MyStepper> {
                       SizedBox(width: 10), // Araya bir boşluk ekleyin
                       Text(
                         'Location',
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFFFE724C)),
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFFFE724C)),
                       ),
                     ],
                   ),
@@ -974,33 +1045,49 @@ class _MyStepperState extends State<MyStepper> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const SizedBox(width: 5), // Araya bir boşluk ekleyin
+                            const SizedBox(
+                                width: 5), // Araya bir boşluk ekleyin
                             Container(
-                              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 5),
                               decoration: BoxDecoration(
-                                border: Border.all(color: Colors.grey.withOpacity(0)),
+                                border: Border.all(
+                                    color: Colors.grey.withOpacity(0)),
                                 borderRadius: BorderRadius.circular(5),
                               ),
                               child: Text(
                                 '${value1}₺',
-                                style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold, color: Colors.black),
+                                style: TextStyle(
+                                    fontSize: 35,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black),
                               ),
                             ),
-                            const SizedBox(width: 5), // Araya bir boşluk ekleyin
+                            const SizedBox(
+                                width: 5), // Araya bir boşluk ekleyin
                             const Text(
                               '-',
-                              style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold, color: Colors.black),
+                              style: TextStyle(
+                                  fontSize: 35,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black),
                             ),
-                            const SizedBox(width: 5), // Araya bir boşluk ekleyin
+                            const SizedBox(
+                                width: 5), // Araya bir boşluk ekleyin
                             Container(
-                              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 5),
                               decoration: BoxDecoration(
-                                border: Border.all(color: Colors.grey.withOpacity(0)),
+                                border: Border.all(
+                                    color: Colors.grey.withOpacity(0)),
                                 borderRadius: BorderRadius.circular(5),
                               ),
                               child: Text(
                                 '${value2}₺',
-                                style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold, color: Colors.black),
+                                style: TextStyle(
+                                    fontSize: 35,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black),
                               ),
                             ),
                           ],
@@ -1008,42 +1095,60 @@ class _MyStepperState extends State<MyStepper> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const SizedBox(width: 5), // Araya bir boşluk ekleyin
+                            const SizedBox(
+                                width: 5), // Araya bir boşluk ekleyin
                             Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 5),
                               decoration: BoxDecoration(
-                                border: Border.all(color: Colors.grey.withOpacity(0)),
+                                border: Border.all(
+                                    color: Colors.grey.withOpacity(0)),
                                 borderRadius: BorderRadius.circular(5),
                               ),
                               child: const Column(
                                 children: [
                                   Text(
                                     '0-3 Ay Tahmini Elden',
-                                    style: TextStyle(fontSize: 10, fontWeight: FontWeight.normal, color: Colors.black),
+                                    style: TextStyle(
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.normal,
+                                        color: Colors.black),
                                   ),
                                   Text(
                                     ' Çıkarma Süresi',
-                                    style: TextStyle(fontSize: 10, fontWeight: FontWeight.normal, color: Colors.black),
+                                    style: TextStyle(
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.normal,
+                                        color: Colors.black),
                                   ),
                                 ],
                               ),
                             ),
-                            const SizedBox(width: 5), // Araya bir boşluk ekleyin
+                            const SizedBox(
+                                width: 5), // Araya bir boşluk ekleyin
                             Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 5),
                               decoration: BoxDecoration(
-                                border: Border.all(color: Colors.grey.withOpacity(0)),
+                                border: Border.all(
+                                    color: Colors.grey.withOpacity(0)),
                                 borderRadius: BorderRadius.circular(5),
                               ),
                               child: const Column(
                                 children: [
                                   Text(
                                     '6-12 Ay Tahmini Elden',
-                                    style: TextStyle(fontSize: 10, fontWeight: FontWeight.normal, color: Colors.black),
+                                    style: TextStyle(
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.normal,
+                                        color: Colors.black),
                                   ),
                                   Text(
                                     ' Çıkarma Süresi',
-                                    style: TextStyle(fontSize: 10, fontWeight: FontWeight.normal, color: Colors.black),
+                                    style: TextStyle(
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.normal,
+                                        color: Colors.black),
                                   ),
                                 ],
                               ),
@@ -1060,7 +1165,8 @@ class _MyStepperState extends State<MyStepper> {
                               padding: const EdgeInsets.all(10),
                               decoration: BoxDecoration(
                                 color: const Color(0xFFFFC529),
-                                border: Border.all(color: Color(0xFFD7D7D7).withOpacity(1)),
+                                border: Border.all(
+                                    color: Color(0xFFD7D7D7).withOpacity(1)),
                                 borderRadius: BorderRadius.circular(35),
                               ),
                               child: const Column(
@@ -1068,29 +1174,40 @@ class _MyStepperState extends State<MyStepper> {
                                   SizedBox(height: 15),
                                   Text(
                                     'First Box Text 1',
-                                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
                                   ),
                                   SizedBox(height: 15),
                                   Text(
                                     'First Box Text 2',
-                                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
                                   ),
                                   SizedBox(height: 15),
                                   Text(
                                     'First Box Text 3',
-                                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
                                   ),
                                 ],
                               ),
                             ),
-                            const SizedBox(height: 20), // Araya bir boşluk ekleyin
+                            const SizedBox(
+                                height: 20), // Araya bir boşluk ekleyin
                             Container(
                               height: 150,
                               width: 300,
                               padding: const EdgeInsets.all(10),
                               decoration: BoxDecoration(
                                 color: const Color(0xFFFFC529),
-                                border: Border.all(color: Color(0xFFD7D7D7).withOpacity(1)),
+                                border: Border.all(
+                                    color: Color(0xFFD7D7D7).withOpacity(1)),
                                 borderRadius: BorderRadius.circular(35),
                               ),
                               child: const Column(
@@ -1098,24 +1215,32 @@ class _MyStepperState extends State<MyStepper> {
                                   SizedBox(height: 15),
                                   Text(
                                     'Second Box Text 1',
-                                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
                                   ),
                                   SizedBox(height: 15),
                                   Text(
                                     'Second Box Text 2',
-                                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
                                   ),
                                 ],
                               ),
                             ),
-                            const SizedBox(height: 20), // Araya bir boşluk ekleyin
+                            const SizedBox(
+                                height: 20), // Araya bir boşluk ekleyin
                             Container(
                               width: 300,
                               height: 150,
                               padding: const EdgeInsets.all(10),
                               decoration: BoxDecoration(
                                 color: const Color(0xFFFE724C),
-                                border: Border.all(color: Color(0xFFD7D7D7).withOpacity(1)),
+                                border: Border.all(
+                                    color: Color(0xFFD7D7D7).withOpacity(1)),
                                 borderRadius: BorderRadius.circular(35),
                               ),
                               child: Column(
@@ -1123,7 +1248,10 @@ class _MyStepperState extends State<MyStepper> {
                                 children: [
                                   const Text(
                                     'Third Box Text 1',
-                                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
                                   ),
                                   const SizedBox(height: 10),
                                   const Expanded(
@@ -1131,7 +1259,8 @@ class _MyStepperState extends State<MyStepper> {
                                       textAlign: TextAlign.center,
                                       decoration: InputDecoration(
                                         hintText: '_ _ _',
-                                        hintStyle: TextStyle(color: Colors.black),
+                                        hintStyle:
+                                            TextStyle(color: Colors.black),
                                         border: InputBorder.none,
                                       ),
                                     ),
@@ -1139,7 +1268,10 @@ class _MyStepperState extends State<MyStepper> {
                                   const SizedBox(height: 10),
                                   Text(
                                     '${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}',
-                                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                                    style: const TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
                                   ),
                                 ],
                               ),
@@ -1151,11 +1283,9 @@ class _MyStepperState extends State<MyStepper> {
                   ),
                 ],
               ),
-                //),
+              //),
             );
-          }
-
-          else if(index == 0){
+          } else if (index == 0) {
             return Step(
               isActive: true,
               title: Text(''),
@@ -1174,8 +1304,7 @@ class _MyStepperState extends State<MyStepper> {
                 ],
               ),
             );
-          }
-          else {
+          } else {
             return Step(
               isActive: true,
               state: _currentStep == 3 ? StepState.editing : StepState.indexed,
@@ -1188,23 +1317,30 @@ class _MyStepperState extends State<MyStepper> {
                       padding: EdgeInsets.all(8.0),
                       child: Text(
                         'Opportunities:',
-                        style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFFE724C), fontSize: 18),
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFFFE724C),
+                            fontSize: 18),
                       ),
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: oppurtunities
                           .map((oppurtunity) => Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 0.0), // Boşluk eklendi
-                        child: CheckboxListTile(
-                          title: Text(oppurtunity, style: const TextStyle(fontWeight: FontWeight.w400)),
-                          value: SelectedOppurtunities.contains(oppurtunity),
-                          activeColor: lightColorScheme.primary,
-                          onChanged: (value) {
-                            toggleoppurtunity(oppurtunity);
-                          },
-                        ),
-                      ))
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 0.0), // Boşluk eklendi
+                                child: CheckboxListTile(
+                                  title: Text(oppurtunity,
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.w400)),
+                                  value: SelectedOppurtunities.contains(
+                                      oppurtunity),
+                                  activeColor: lightColorScheme.primary,
+                                  onChanged: (value) {
+                                    toggleoppurtunity(oppurtunity);
+                                  },
+                                ),
+                              ))
                           .toList(),
                     ),
                   ],
@@ -1212,8 +1348,6 @@ class _MyStepperState extends State<MyStepper> {
               ),
             );
           }
-
-
         }),
       ),
     );
@@ -1272,7 +1406,6 @@ class EstateInformationForm extends StatelessWidget {
   final int whichFloor;
   final int countOfFloor;
 
-
   List<String> selectedFacade = [];
   List<String> selectedLandscape = [];
   String selectedHeatingSystem = '';
@@ -1305,7 +1438,4 @@ class EstateInformationForm extends StatelessWidget {
     // TODO: implement build
     throw UnimplementedError();
   }
-
-
-
 }
