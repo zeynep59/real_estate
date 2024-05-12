@@ -93,7 +93,7 @@ class WelcomePage extends StatelessWidget {
               SizedBox(height: 20), // Added space before the additional button
               ElevatedButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/map_page');
+                  Navigator.pushNamed(context, '/form_page');
                 },
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:real_estate/models/address.dart';
 import 'package:real_estate/widgets/additionalFeatures.dart';
 import 'package:real_estate/widgets/opportunities.dart';
 import '../theme/theme.dart';

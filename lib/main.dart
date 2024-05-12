@@ -34,12 +34,13 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: lightMode,
-      home: const HomeScreen(),
+      home: const WelcomePage(),
       routes: {
         '/sign_in': (context) => SignInScreen(),
         '/sign_up': (context) => SignUpScreen(),
         '/form_page': (context) => MyStepper(),
-        '/map_page': (context) => MapPage()
+        '/map_page': (context) => MapPage(),
+        'search': (context) => HomeScreen()
       },
     );
   }
