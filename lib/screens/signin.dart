@@ -158,11 +158,6 @@ class _SignInScreenState extends State<SignInScreen> {
                           onPressed: () {
                             if (_formSignInKey.currentState!.validate() &&
                                 rememberPassword) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text('Processing Data'),
-                                ),
-                              );
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(

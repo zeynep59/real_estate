@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:location/location.dart';
+import 'package:real_estate/widgets/search_field.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-import 'package:geocoding/geocoding.dart';
+import 'package:real_estate/components/searchField.dart';
 
 class MapPage extends StatefulWidget {
   const MapPage({Key? key}) : super(key: key);
@@ -16,6 +17,7 @@ class _MapPageState extends State<MapPage> {
   Location _locationController = Location();
   static const LatLng _pApplePark = LatLng(37.4223, -122.0090);
   static const LatLng _pGooglePlex = LatLng(37.4223, -122.0848);
+
   final cityController = TextEditingController();
   final countryController = TextEditingController();
   final districtController = TextEditingController();
@@ -27,44 +29,36 @@ class _MapPageState extends State<MapPage> {
     color: Colors.black,
     fontFamily: 'Arial',
   );
-
-  // Function to handle location selection on the map
-  void _onMapTap(LatLng tappedPoint) async {
-    // Perform reverse geocoding
-    List<Placemark> placemarks = await placemarkFromCoordinates(
-      tappedPoint.latitude,
-      tappedPoint.longitude,
-    );
-
-    // Extract address details
-    if (placemarks.isNotEmpty) {
-      Placemark placemark = placemarks.first;
-      String city = placemark.locality ?? '';
-      String district = placemark.subLocality ?? '';
-      String country = placemark.country ?? '';
-      String street = placemark.street ?? '';
-
-      // Update text fields in the panel
-      setState(() {
-        cityController.text = city;
-        districtController.text = district;
-        countryController.text = country;
-        streetController.text = street;
-      });
-    }
-  }
-
-  // Function to handle location picking
-  void _pickLocation() async {
-    LocationData currentLocation = await _locationController.getLocation();
-    LatLng pickedLocation =
-        LatLng(currentLocation.latitude!, currentLocation.longitude!);
-    _onMapTap(pickedLocation);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        elevation: 0.0,
+        backgroundColor: Colors.white,
+        toolbarHeight: 60.0,
+        title: Row(
+          children: [
+            Icon(
+              Icons.location_on,
+              color: Color(0xFFFFE724C),
+            ),
+            const Text(
+              "İzmir, Turkey",
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 14,
+              ),
+            ),
+            SizedBox(
+                width: 10), // Add some space between location and search field
+            Expanded(
+              child:
+                  SearchFieldWithSelection(), // Use the custom SearchFieldWithSelection widget
+            ),
+          ],
+        ),
+      ),
       body: SlidingUpPanel(
         panel: Container(
           padding: EdgeInsets.all(16),
@@ -75,7 +69,7 @@ class _MapPageState extends State<MapPage> {
               Text(
                 'Address',
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 16,
                   fontWeight: FontWeight.bold,
                   color: Color(0xFFFFE724C),
                 ),
@@ -128,7 +122,6 @@ class _MapPageState extends State<MapPage> {
           ),
         ),
         body: GoogleMap(
-          onTap: _onMapTap, // Listen for taps on the map
           initialCameraPosition: CameraPosition(target: _pGooglePlex, zoom: 13),
           markers: {
             Marker(
@@ -138,10 +131,6 @@ class _MapPageState extends State<MapPage> {
             ),
           },
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _pickLocation,
-        child: Icon(Icons.location_on),
       ),
       bottomNavigationBar: GNav(
         gap: 8,
