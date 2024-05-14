@@ -248,71 +248,17 @@ class _MyStepperState extends State<MyStepper> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   SizedBox(height: 20),
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Color(0xFFFFE724C), width: 1.0),
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                    constraints: BoxConstraints(maxHeight: 50),
-                    child: TextFormField(
-                      controller: cityController,
-                      decoration: InputDecoration(
-                        labelText: 'City',
-                        labelStyle: labelTextStyle,
-                        border: InputBorder.none,
-                      ),
+                  Text(
+                    'Size:',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFFFFE724C),
                     ),
                   ),
-                  SizedBox(height: 10),
                   Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Color(0xFFFFE724C), width: 1.0),
-                      borderRadius: BorderRadius.circular(3.0),
-                    ),
-                    constraints: BoxConstraints(maxHeight: 50),
-                    child: TextFormField(
-                      controller: countryController,
-                      decoration: InputDecoration(
-                        labelText: 'Country',
-                        labelStyle: labelTextStyle,
-                        border: InputBorder.none,
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 10),
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Color(0xFFFFE724C), width: 1.0),
-                      borderRadius: BorderRadius.circular(3.0),
-                    ),
-                    constraints: BoxConstraints(maxHeight: 50),
-                    child: TextFormField(
-                      controller: districtController,
-                      decoration: InputDecoration(
-                        labelText: 'District',
-                        labelStyle: labelTextStyle,
-                        border: InputBorder.none,
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 10),
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Color(0xFFFFE724C), width: 1.0),
-                      borderRadius: BorderRadius.circular(3.0),
-                    ),
-                    constraints: BoxConstraints(maxHeight: 50),
-                    child: TextFormField(
-                      controller: streetController,
-                      decoration: InputDecoration(
-                        labelText: 'Street',
-                        labelStyle: labelTextStyle,
-                        border: InputBorder.none,
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 10),
-                  Container(
+                    margin: EdgeInsets.only(
+                        top: 10), // Adding space between the text and container
                     decoration: BoxDecoration(
                       border: Border.all(color: Color(0xFFFFE724C), width: 1.0),
                       borderRadius: BorderRadius.circular(3.0),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:real_estate/screens/map_page.dart';
 import 'package:real_estate/screens/signup.dart';
 import 'package:real_estate/widgets/custom_scaffold.dart';
 import '../theme/theme.dart';
@@ -160,6 +161,12 @@ class _SignInScreenState extends State<SignInScreen> {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
                                   content: Text('Processing Data'),
+                                ),
+                              );
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => MapPage(),
                                 ),
                               );
                             } else if (!rememberPassword) {
