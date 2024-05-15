@@ -173,10 +173,10 @@ class _MyStepperState extends State<MyStepper> {
           if (countOfBath > 1) countOfBath--;
           break;
         case 'Gross Area':
-          if (grossArea > 0) grossArea--;
+          if (grossArea > 0) grossArea-=10;
           break;
         case 'Terrace Area':
-          if (terraceArea > 0) terraceArea--;
+          if (terraceArea > 0) terraceArea-=10;
           break;
         case 'Building Age':
           if (buildingAge > 0) buildingAge--;
@@ -252,7 +252,6 @@ class _MyStepperState extends State<MyStepper> {
                 facade: selectedFacade,
                 landscape: selectedLandscape,
                 price: 0,
-                id: 1111,
                 opportunities: SelectedOppurtunities,
                 heating: selectedHeatingSystem,
 
@@ -710,12 +709,12 @@ class _MyStepperState extends State<MyStepper> {
                                     children: [
                                       IconButton(
                                         onPressed: () => decrementValue(
-                                            'Floor on It is Located'),
+                                            'Floor on Which It is Located'),
                                         icon: Icon(Icons.remove),
                                       ),
                                       IconButton(
                                         onPressed: () => incrementValue(
-                                            'Floor on It is Located'),
+                                            'Floor on Which It is Located'),
                                         icon: Icon(Icons.add),
                                       ),
                                     ],

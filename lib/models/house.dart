@@ -14,7 +14,6 @@ class House {
   double? grossArea;
   double? terraceArea;
   double price;
-  Object id;
   List<String> facade;
   List<String> landscape;
   String? heating;
@@ -32,7 +31,6 @@ class House {
     this.grossArea,
     this.terraceArea,
     required this.price,
-    required this.id,
     required this.facade,
     required this.landscape,
     this.heating,
@@ -52,7 +50,6 @@ class House {
     grossArea: json['grossArea']! as double?,
     terraceArea: json['terraceArea']! as double?,
     price: json['price']! as double,
-    id: json['id'] as Object,
     facade: (json['facade'] as List<dynamic>).cast<String>(),
     landscape: (json['landscape'] as List<dynamic>).cast<String>(),
     heating: json['heating'] as String?,
@@ -72,7 +69,6 @@ class House {
       'grossArea': grossArea,
       'terraceArea': terraceArea,
       'price': price,
-      'id': id,
       'facade': facade,
       'landscape': landscape,
       'heating': heating,
