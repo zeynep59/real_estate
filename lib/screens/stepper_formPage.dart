@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:real_estate/models/address.dart';
 import 'package:real_estate/widgets/additionalFeatures.dart';
 import 'package:real_estate/widgets/opportunities.dart';
+import '../models/house.dart';
 import '../theme/theme.dart';
+import 'package:real_estate/services/database_service.dart';
 
 class StepperPage extends StatelessWidget {
   @override
@@ -23,6 +25,7 @@ class StepperPage extends StatelessWidget {
         child: MyStepper(),
       ),
     );
+
   }
 }
 
@@ -99,11 +102,20 @@ class _MyStepperState extends State<MyStepper> {
   ];
 
   List<String> SelectedOppurtunities = [];
+  final DatabaseService _databaseService = DatabaseService();
+
+  late Address address;
 
   void initState() {
     super.initState();
-    structureStatus = 'Well Maintained/Renovated';
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      address = ModalRoute.of(context)!.settings.arguments as Address;
+      setState(() {
+        structureStatus = 'Well Maintained/Renovated';
+      });
+    });
   }
+
 
   void toggleoppurtunity(String oppurtunity) {
     if (SelectedOppurtunities.contains(oppurtunity)) {
@@ -221,17 +233,44 @@ class _MyStepperState extends State<MyStepper> {
         type: StepperType.horizontal,
         currentStep: _currentStep,
         onStepContinue: () {
-          if (_currentStep < 4) {
+          if (_currentStep < 3) {
             setState(() => _currentStep++);
+          }
+          else if(_currentStep == 3){
+            _databaseService.addHouse(
+              House(
+                address: address,
+                squaremeter: double.parse(squareMeterController.text),
+                numberOfRooms: countOfRoom,
+                numberOfHalls: countOfSaloon,
+                numberOfBaths: countOfBath,
+                buildingAge: buildingAge,
+                numberOfFloors: countOfFloor,
+                floorOn: whichFloor,
+                grossArea:grossArea.toDouble(),
+                terraceArea: terraceArea.toDouble(),
+                facade: selectedFacade,
+                landscape: selectedLandscape,
+                price: 0,
+                id: 1111,
+                opportunities: SelectedOppurtunities,
+                heating: selectedHeatingSystem,
+
+              ),
+            );
+            print("added to database");
           }
         },
         onStepCancel: () {
           if (_currentStep > 0) {
             setState(() => _currentStep--);
           }
+          else if(_currentStep == 0){
+            Navigator.pop(context);
+          }
         },
-        steps: List<Step>.generate(5, (index) {
-          if (index == 1) {
+        steps: List<Step>.generate(4, (index) {
+          if (index == 0) {
             // This is the second step
             TextStyle labelTextStyle = const TextStyle(
               fontSize: 16,
@@ -242,13 +281,13 @@ class _MyStepperState extends State<MyStepper> {
 
             return Step(
               isActive: true,
-              state: _currentStep == 1 ? StepState.editing : StepState.indexed,
+              state: _currentStep == 0 ? StepState.editing : StepState.indexed,
               title: Text(''),
               content: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   SizedBox(height: 20),
-                  Text(
+                  const Text(
                     'Size:',
                     style: TextStyle(
                       fontSize: 16,
@@ -257,7 +296,7 @@ class _MyStepperState extends State<MyStepper> {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(
+                    margin: const EdgeInsets.only(
                         top: 10), // Adding space between the text and container
                     decoration: BoxDecoration(
                       border: Border.all(color: Color(0xFFFFE724C), width: 1.0),
@@ -740,11 +779,12 @@ class _MyStepperState extends State<MyStepper> {
                 ],
               ),
             );
-          } else if (index == 2) {
+          }
+          else if (index == 1) {
             // This is the 5th step where you want to add the additionalFeatures widget
             return Step(
               isActive: true,
-              state: _currentStep == 2 ? StepState.editing : StepState.indexed,
+              state: _currentStep == 1 ? StepState.editing : StepState.indexed,
               title: Text(''),
               content: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -907,10 +947,11 @@ class _MyStepperState extends State<MyStepper> {
                 ],
               ),
             );
-          } else if (index == 4) {
+          }
+          else if (index == 3) {
             return Step(
               isActive: true,
-              state: _currentStep == 4 ? StepState.editing : StepState.indexed,
+              state: _currentStep == 3 ? StepState.editing : StepState.indexed,
               title: const Text(''),
               /*content: Container(
                   decoration: BoxDecoration(
@@ -1232,7 +1273,8 @@ class _MyStepperState extends State<MyStepper> {
               ),
               //),
             );
-          } else if (index == 0) {
+          }
+          /*else if (index == 0) {
             return Step(
               isActive: true,
               title: Text(''),
@@ -1251,10 +1293,11 @@ class _MyStepperState extends State<MyStepper> {
                 ],
               ),
             );
-          } else {
+          }*/
+          else {
             return Step(
               isActive: true,
-              state: _currentStep == 3 ? StepState.editing : StepState.indexed,
+              state: _currentStep == 2 ? StepState.editing : StepState.indexed,
               title: const Text(''),
               content: SingleChildScrollView(
                 child: Column(

@@ -2,9 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:location/location.dart';
+import 'package:real_estate/screens/stepper_formPage.dart';
 import 'package:real_estate/widgets/search_field.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-import 'package:real_estate/components/searchField.dart';
+
+import 'package:real_estate/services/database_service.dart';
+
+import '../components/searchField.dart';
+import '../models/address.dart';
+import '../models/house.dart';
 
 class MapPage extends StatefulWidget {
   const MapPage({Key? key}) : super(key: key);
@@ -29,6 +35,10 @@ class _MapPageState extends State<MapPage> {
     color: Colors.black,
     fontFamily: 'Arial',
   );
+
+  // Database Service instance
+  final DatabaseService _databaseService = DatabaseService();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,13 +47,13 @@ class _MapPageState extends State<MapPage> {
         elevation: 0.0,
         backgroundColor: Colors.white,
         toolbarHeight: 60.0,
-        title: Row(
+        title: const Row(
           children: [
             Icon(
               Icons.location_on,
               color: Color(0xFFFFE724C),
             ),
-            const Text(
+            Text(
               "İzmir, Turkey",
               style: TextStyle(
                 color: Colors.black,
@@ -51,22 +61,22 @@ class _MapPageState extends State<MapPage> {
               ),
             ),
             SizedBox(
-                width: 10), // Add some space between location and search field
+              width: 10,
+            ), // Add some space between location and search field
             Expanded(
-              child:
-                  SearchFieldWithSelection(), // Use the custom SearchFieldWithSelection widget
+              child: SearchFieldWithSelection(), // Use the custom SearchFieldWithSelection widget
             ),
           ],
         ),
       ),
       body: SlidingUpPanel(
         panel: Container(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           color: Colors.white,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 'Address',
                 style: TextStyle(
                   fontSize: 16,
@@ -74,7 +84,7 @@ class _MapPageState extends State<MapPage> {
                   color: Color(0xFFFFE724C),
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               TextFormField(
                 controller: cityController,
                 decoration: InputDecoration(
@@ -85,7 +95,7 @@ class _MapPageState extends State<MapPage> {
                   ),
                 ),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               TextFormField(
                 controller: countryController,
                 decoration: InputDecoration(
@@ -96,7 +106,7 @@ class _MapPageState extends State<MapPage> {
                   ),
                 ),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               TextFormField(
                 controller: districtController,
                 decoration: InputDecoration(
@@ -107,7 +117,7 @@ class _MapPageState extends State<MapPage> {
                   ),
                 ),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               TextFormField(
                 controller: streetController,
                 decoration: InputDecoration(
@@ -118,13 +128,63 @@ class _MapPageState extends State<MapPage> {
                   ),
                 ),
               ),
+              const SizedBox(height: 16),
+              /*ElevatedButton(
+                onPressed: () {
+                  // Veritabanına kaydet
+                  /*_databaseService.addAddress(
+                    Address(
+                      city: cityController.text,
+                      country: countryController.text,
+                      district: districtController.text,
+                      street: streetController.text, address: streetController.text+districtController.text+
+                        countryController.text+cityController.text,
+                    ) as House,
+                  );*/
+
+                  // Form sayfasına git
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => MyStepper()),
+                  );
+                //},
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(40), // Burada yuvarlaklık ayarlayabilirsiniz
+                  ),
+                ),
+                child: const Text('Continue'),
+              ),*/
+              ElevatedButton(
+                onPressed: () {
+                  // Veritabanına kaydet
+
+                  // Form sayfasına git ve parametre gönder
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => MyStepper(), settings: RouteSettings(arguments: Address(
+                      city: cityController.text,
+                      country: countryController.text,
+                      district: districtController.text,
+                      street: streetController.text, address: '${cityController.text},${countryController.text},${districtController.text},${streetController.text}',
+                    ))),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(40), // Burada yuvarlaklık ayarlayabilirsiniz
+                  ),
+                ),
+                child: const Text('Continue'),
+              ),
+
             ],
           ),
         ),
         body: GoogleMap(
-          initialCameraPosition: CameraPosition(target: _pGooglePlex, zoom: 13),
+          initialCameraPosition: const CameraPosition(target: _pGooglePlex, zoom: 13),
           markers: {
-            Marker(
+            const Marker(
               markerId: MarkerId("_currentLocation"),
               icon: BitmapDescriptor.defaultMarker,
               position: _pGooglePlex,
@@ -134,9 +194,9 @@ class _MapPageState extends State<MapPage> {
       ),
       bottomNavigationBar: GNav(
         gap: 8,
-        backgroundColor: Color(0xFF272D2F),
+        backgroundColor: const Color(0xFF272D2F),
         color: Colors.white,
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         tabBackgroundColor: Colors.grey.shade800,
         activeColor: Colors.white,
         tabs: const [
