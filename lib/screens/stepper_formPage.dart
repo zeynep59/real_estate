@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:real_estate/models/address.dart';
-import 'package:real_estate/widgets/additionalFeatures.dart';
-import 'package:real_estate/widgets/opportunities.dart';
 import '../models/house.dart';
 import '../theme/theme.dart';
 import 'package:real_estate/services/database_service.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 class StepperPage extends StatelessWidget {
   @override
@@ -25,7 +25,6 @@ class StepperPage extends StatelessWidget {
         child: MyStepper(),
       ),
     );
-
   }
 }
 
@@ -116,7 +115,6 @@ class _MyStepperState extends State<MyStepper> {
     });
   }
 
-
   void toggleoppurtunity(String oppurtunity) {
     if (SelectedOppurtunities.contains(oppurtunity)) {
       setState(() {
@@ -173,10 +171,10 @@ class _MyStepperState extends State<MyStepper> {
           if (countOfBath > 1) countOfBath--;
           break;
         case 'Gross Area':
-          if (grossArea > 0) grossArea-=10;
+          if (grossArea > 0) grossArea -= 10;
           break;
         case 'Terrace Area':
-          if (terraceArea > 0) terraceArea-=10;
+          if (terraceArea > 0) terraceArea -= 10;
           break;
         case 'Building Age':
           if (buildingAge > 0) buildingAge--;
@@ -232,39 +230,56 @@ class _MyStepperState extends State<MyStepper> {
       body: Stepper(
         type: StepperType.horizontal,
         currentStep: _currentStep,
-        onStepContinue: () {
+        onStepContinue: () async {
           if (_currentStep < 3) {
             setState(() => _currentStep++);
-          }
-          else if(_currentStep == 3){
-            _databaseService.addHouse(
-              House(
-                address: address,
-                squaremeter: double.parse(squareMeterController.text),
-                numberOfRooms: countOfRoom,
-                numberOfHalls: countOfSaloon,
-                numberOfBaths: countOfBath,
-                buildingAge: buildingAge,
-                numberOfFloors: countOfFloor,
-                floorOn: whichFloor,
-                grossArea:grossArea.toDouble(),
-                terraceArea: terraceArea.toDouble(),
-                facade: selectedFacade,
-                landscape: selectedLandscape,
-                price: 0,
-                opportunities: SelectedOppurtunities,
-                heating: selectedHeatingSystem,
-
-              ),
+          } else if (_currentStep == 3) {
+            House house = House(
+              address: address,
+              squaremeter: double.parse(squareMeterController.text),
+              numberOfRooms: countOfRoom,
+              numberOfHalls: countOfSaloon,
+              numberOfBaths: countOfBath,
+              buildingAge: buildingAge,
+              numberOfFloors: countOfFloor,
+              floorOn: whichFloor,
+              grossArea: grossArea.toDouble(),
+              terraceArea: terraceArea.toDouble(),
+              facade: selectedFacade,
+              landscape: selectedLandscape,
+              price: 0,
+              opportunities: SelectedOppurtunities,
+              heating: selectedHeatingSystem,
             );
-            print("added to database");
+            //add given house to the firestore db
+            _databaseService.addHouse(house);
+
+            String jsonData = jsonEncode(house.toJson());
+            // Send JSON data to Flask API
+            var response = await http.post(
+              Uri.parse("http://127.0.0.1:5000/predict"),
+              body: jsonData,
+              headers: {
+                'Content-Type':
+                    'application/json', // Set Content-Type header correctly
+                'Accept': 'application/json',
+              },
+            );
+
+            if (response.statusCode == 200) {
+              // Successfully sent data to Flask API
+              print('House data sent successfully');
+            } else {
+              // Failed to send data to Flask API
+              print('Failed to send house data: ${response.statusCode}');
+            }
+            //the house attributed will be send to model and get result
           }
         },
         onStepCancel: () {
           if (_currentStep > 0) {
             setState(() => _currentStep--);
-          }
-          else if(_currentStep == 0){
+          } else if (_currentStep == 0) {
             Navigator.pop(context);
           }
         },
@@ -778,8 +793,7 @@ class _MyStepperState extends State<MyStepper> {
                 ],
               ),
             );
-          }
-          else if (index == 1) {
+          } else if (index == 1) {
             // This is the 5th step where you want to add the additionalFeatures widget
             return Step(
               isActive: true,
@@ -946,8 +960,7 @@ class _MyStepperState extends State<MyStepper> {
                 ],
               ),
             );
-          }
-          else if (index == 3) {
+          } else if (index == 3) {
             return Step(
               isActive: true,
               state: _currentStep == 3 ? StepState.editing : StepState.indexed,
@@ -1095,14 +1108,14 @@ class _MyStepperState extends State<MyStepper> {
                               child: const Column(
                                 children: [
                                   Text(
-                                    '0-3 Ay Tahmini Elden',
+                                    '0-3 months predicted',
                                     style: TextStyle(
                                         fontSize: 10,
                                         fontWeight: FontWeight.normal,
                                         color: Colors.black),
                                   ),
                                   Text(
-                                    ' Çıkarma Süresi',
+                                    ' Disposal time',
                                     style: TextStyle(
                                         fontSize: 10,
                                         fontWeight: FontWeight.normal,
@@ -1124,14 +1137,14 @@ class _MyStepperState extends State<MyStepper> {
                               child: const Column(
                                 children: [
                                   Text(
-                                    '6-12 Ay Tahmini Elden',
+                                    '6-12 months predicted',
                                     style: TextStyle(
                                         fontSize: 10,
                                         fontWeight: FontWeight.normal,
                                         color: Colors.black),
                                   ),
                                   Text(
-                                    ' Çıkarma Süresi',
+                                    ' Disposal time',
                                     style: TextStyle(
                                         fontSize: 10,
                                         fontWeight: FontWeight.normal,
