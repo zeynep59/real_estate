@@ -219,6 +219,46 @@ class _MyStepperState extends State<MyStepper> {
     });
   }
 
+  void predicate(BuildContext context) async {
+    House house = House(
+      address: address,
+      squaremeter: double.parse(squareMeterController.text),
+      numberOfRooms: countOfRoom,
+      numberOfHalls: countOfSaloon,
+      numberOfBaths: countOfBath,
+      buildingAge: buildingAge,
+      numberOfFloors: countOfFloor,
+      floorOn: whichFloor,
+      grossArea: grossArea.toDouble(),
+      terraceArea: terraceArea.toDouble(),
+      facade: selectedFacade,
+      landscape: selectedLandscape,
+      price: 0,
+      opportunities: SelectedOppurtunities,
+      heating: selectedHeatingSystem,
+    );
+    //add given house to the firestore db
+    _databaseService.addHouse(house);
+
+    String jsonData = jsonEncode(house.toJson());
+    // Send JSON data to Flask API
+    var response = await http.post(
+      Uri.parse("http://127.0.0.1:5000/predict"),
+      body: jsonData,
+      headers: {
+        'Content-Type': 'application/json', // Set Content-Type header correctly
+        'Accept': 'application/json',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      // Successfully sent data to Flask API
+      print('House data sent successfully');
+    } else {
+      // Failed to send data to Flask API
+      print('Failed to send house data: ${response.statusCode}');
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -234,45 +274,46 @@ class _MyStepperState extends State<MyStepper> {
           if (_currentStep < 3) {
             setState(() => _currentStep++);
           } else if (_currentStep == 3) {
-            House house = House(
-              address: address,
-              squaremeter: double.parse(squareMeterController.text),
-              numberOfRooms: countOfRoom,
-              numberOfHalls: countOfSaloon,
-              numberOfBaths: countOfBath,
-              buildingAge: buildingAge,
-              numberOfFloors: countOfFloor,
-              floorOn: whichFloor,
-              grossArea: grossArea.toDouble(),
-              terraceArea: terraceArea.toDouble(),
-              facade: selectedFacade,
-              landscape: selectedLandscape,
-              price: 0,
-              opportunities: SelectedOppurtunities,
-              heating: selectedHeatingSystem,
-            );
-            //add given house to the firestore db
-            _databaseService.addHouse(house);
+            predicate(context);
+            // House house = House(
+            //   address: address,
+            //   squaremeter: double.parse(squareMeterController.text),
+            //   numberOfRooms: countOfRoom,
+            //   numberOfHalls: countOfSaloon,
+            //   numberOfBaths: countOfBath,
+            //   buildingAge: buildingAge,
+            //   numberOfFloors: countOfFloor,
+            //   floorOn: whichFloor,
+            //   grossArea: grossArea.toDouble(),
+            //   terraceArea: terraceArea.toDouble(),
+            //   facade: selectedFacade,
+            //   landscape: selectedLandscape,
+            //   price: 0,
+            //   opportunities: SelectedOppurtunities,
+            //   heating: selectedHeatingSystem,
+            // );
+            // //add given house to the firestore db
+            // _databaseService.addHouse(house);
 
-            String jsonData = jsonEncode(house.toJson());
-            // Send JSON data to Flask API
-            var response = await http.post(
-              Uri.parse("http://127.0.0.1:5000/predict"),
-              body: jsonData,
-              headers: {
-                'Content-Type':
-                    'application/json', // Set Content-Type header correctly
-                'Accept': 'application/json',
-              },
-            );
+            // String jsonData = jsonEncode(house.toJson());
+            // // Send JSON data to Flask API
+            // var response = await http.post(
+            //   Uri.parse("http://127.0.0.1:5000/predict"),
+            //   body: jsonData,
+            //   headers: {
+            //     'Content-Type':
+            //         'application/json', // Set Content-Type header correctly
+            //     'Accept': 'application/json',
+            //   },
+            // );
 
-            if (response.statusCode == 200) {
-              // Successfully sent data to Flask API
-              print('House data sent successfully');
-            } else {
-              // Failed to send data to Flask API
-              print('Failed to send house data: ${response.statusCode}');
-            }
+            // if (response.statusCode == 200) {
+            //   // Successfully sent data to Flask API
+            //   print('House data sent successfully');
+            // } else {
+            //   // Failed to send data to Flask API
+            //   print('Failed to send house data: ${response.statusCode}');
+            // }
             //the house attributed will be send to model and get result
           }
         },

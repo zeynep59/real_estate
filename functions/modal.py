@@ -493,7 +493,7 @@ def predict_price(district, item,floor,heating,site, sqmt, room, hall,age,wc):
         
     return "Estimated Price: " + str(round(rf_reg.predict([x])[0])) + " TL"
 
-# predict_price("bagcilar", "Boş","ÇatıKatı","Heating_Klimalı","Hayır",50, 3, 0,5,1)
+    predict_price("bagcilar", "Boş","ÇatıKatı","Heating_Klimalı","Hayır",50, 3, 0,5,1)
 
 # %%
 
