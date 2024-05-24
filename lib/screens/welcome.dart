@@ -27,7 +27,7 @@ class WelcomePage extends StatelessWidget {
             children: [
               Spacer(),
               Text(
-                'Welcome to Real Estate deneme',
+                'Welcome to Real Estate deneme123',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 30,
