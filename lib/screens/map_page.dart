@@ -7,7 +7,7 @@ import 'package:real_estate/widgets/search_field.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import 'package:real_estate/services/database_service.dart';
-
+import 'package:real_estate/screens/settings.dart';
 import '../components/searchField.dart';
 import '../models/address.dart';
 import '../models/house.dart';
@@ -47,20 +47,20 @@ class _MapPageState extends State<MapPage> {
         elevation: 0.0,
         backgroundColor: Colors.white,
         toolbarHeight: 60.0,
-        title: const Row(
+        title: Row(
           children: [
-            Icon(
+            const Icon(
               Icons.location_on,
               color: Color(0xFFFFE724C),
             ),
-            Text(
+            const Text(
               "İzmir, Turkey",
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 14,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 10,
             ), // Add some space between location and search field
             Expanded(
@@ -129,45 +129,23 @@ class _MapPageState extends State<MapPage> {
                 ),
               ),
               const SizedBox(height: 16),
-              /*ElevatedButton(
-                onPressed: () {
-                  // Veritabanına kaydet
-                  /*_databaseService.addAddress(
-                    Address(
-                      city: cityController.text,
-                      country: countryController.text,
-                      district: districtController.text,
-                      street: streetController.text, address: streetController.text+districtController.text+
-                        countryController.text+cityController.text,
-                    ) as House,
-                  );*/
-
-                  // Form sayfasına git
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => MyStepper()),
-                  );
-                //},
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(40), // Burada yuvarlaklık ayarlayabilirsiniz
-                  ),
-                ),
-                child: const Text('Continue'),
-              ),*/
               ElevatedButton(
                 onPressed: () {
-                  // Veritabanına kaydet
-
                   // Form sayfasına git ve parametre gönder
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => MyStepper(), settings: RouteSettings(arguments: Address(
-                      city: cityController.text,
-                      country: countryController.text,
-                      district: districtController.text,
-                      street: streetController.text, address: '${cityController.text},${countryController.text},${districtController.text},${streetController.text}',
-                    ))),
+                    MaterialPageRoute(
+                      builder: (context) => MyStepper(),
+                      settings: RouteSettings(
+                        arguments: Address(
+                          city: cityController.text,
+                          country: countryController.text,
+                          district: districtController.text,
+                          street: streetController.text,
+                          address: '${cityController.text}, ${countryController.text}, ${districtController.text}, ${streetController.text}',
+                        ),
+                      ),
+                    ),
                   );
                 },
                 style: ElevatedButton.styleFrom(
@@ -177,7 +155,6 @@ class _MapPageState extends State<MapPage> {
                 ),
                 child: const Text('Continue'),
               ),
-
             ],
           ),
         ),
@@ -199,7 +176,7 @@ class _MapPageState extends State<MapPage> {
         padding: const EdgeInsets.all(16),
         tabBackgroundColor: Colors.grey.shade800,
         activeColor: Colors.white,
-        tabs: const [
+        tabs: [
           GButton(
             icon: Icons.home,
             text: "Home",
@@ -217,6 +194,11 @@ class _MapPageState extends State<MapPage> {
             text: "Settings",
           ),
         ],
+        onTabChange: (index) {
+          if (index == 3) {
+            Navigator.pushNamed(context, '/settings');
+          }
+        },
       ),
     );
   }
