@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:real_estate/widgets/custom_scaffold.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 import '../theme/theme.dart';
 
 class Settings extends StatefulWidget {
@@ -15,8 +15,8 @@ class _SettingsState extends State<Settings> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold(
-      child: Column(
+    return Scaffold(
+      body: Column(
         children: [
           const Expanded(
             flex: 1,
@@ -142,6 +142,48 @@ class _SettingsState extends State<Settings> {
                 ),
               ),
             ),
+          ),
+          const Divider(
+            height: 1,
+            color: Colors.grey,
+          ),
+          GNav(
+            gap: 8,
+            backgroundColor: const Color(0xFF272D2F),
+            color: Colors.white,
+            padding: const EdgeInsets.all(16),
+            tabBackgroundColor: Colors.grey.shade800,
+            activeColor: Colors.white,
+            tabs: [
+              GButton(
+                icon: Icons.home,
+                text: "Home",
+              ),
+              GButton(
+                icon: Icons.search,
+                text: "Search",
+              ),
+              GButton(
+                icon: Icons.favorite_border,
+                text: "Favorites",
+              ),
+              GButton(
+                icon: Icons.settings,
+                text: "Settings",
+              ),
+            ],
+            selectedIndex: 3,  // Ensure the settings tab is selected
+            onTabChange: (index) {
+              if (index == 0) {
+                Navigator.pushNamed(context, '/map_page');
+              } else if (index == 1) {
+                Navigator.pushNamed(context, '/search');
+              } else if (index == 2) {
+                Navigator.pushNamed(context, '/favorites');
+              } else if (index == 3) {
+                Navigator.pushNamed(context, '/settings');
+              }
+            },
           ),
         ],
       ),

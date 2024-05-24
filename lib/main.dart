@@ -41,8 +41,9 @@ class MyApp extends StatelessWidget {
         '/sign_up': (context) => SignUpScreen(),
         '/form_page': (context) => MyStepper(),
         '/map_page': (context) => MapPage(),
-        'search': (context) => HomeScreen(),
-        '/settings': (context) => Settings()
+        'search': (context) => MapPage(),
+        '/settings': (context) => Settings(),
+        '/favorites': (context) => MapPage(),
       },
     );
   }
