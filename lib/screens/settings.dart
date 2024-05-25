@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:flutter/services.dart'; // Import this package for SystemNavigator.pop()
+
 import '../theme/theme.dart';
 
 class Settings extends StatefulWidget {
@@ -136,6 +138,7 @@ class _SettingsState extends State<Settings> {
                       title: const Text('Logout'),
                       onTap: () {
                         // Handle logout
+                        SystemNavigator.pop(); // This will exit the app
                       },
                     ),
                   ],
@@ -154,7 +157,7 @@ class _SettingsState extends State<Settings> {
             padding: const EdgeInsets.all(16),
             tabBackgroundColor: Colors.grey.shade800,
             activeColor: Colors.white,
-            tabs: [
+            tabs: const [
               GButton(
                 icon: Icons.home,
                 text: "Home",
