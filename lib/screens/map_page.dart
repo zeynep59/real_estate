@@ -22,8 +22,9 @@ class MapPage extends StatefulWidget {
 
 class _MapPageState extends State<MapPage> {
   loc.Location _locationController = loc.Location(); // Use alias 'loc' for the 'location' package
-  static const LatLng _pApplePark = LatLng(37.4223, -122.0090);
-  static const LatLng _pGooglePlex = LatLng(37.4223, -122.0848);
+  late GoogleMapController _mapController;
+  LatLng _currentLocation = const LatLng(37.4223, -122.0848);
+  String _currentCity = "Loading...";
 
   final cityController = TextEditingController();
   final countryController = TextEditingController();
@@ -40,6 +41,43 @@ class _MapPageState extends State<MapPage> {
   // Database Service instance
   final DatabaseService _databaseService = DatabaseService();
 
+  @override
+  void initState() {
+    super.initState();
+    _getCurrentLocation();
+  }
+
+  // Method to get the current location and reverse geocode it
+  Future<void> _getCurrentLocation() async {
+    bool _serviceEnabled;
+    loc.PermissionStatus _permissionGranted;
+
+    _serviceEnabled = await _locationController.serviceEnabled();
+    if (!_serviceEnabled) {
+      _serviceEnabled = await _locationController.requestService();
+      if (!_serviceEnabled) {
+        return;
+      }
+    }
+
+    _permissionGranted = await _locationController.hasPermission();
+    if (_permissionGranted == loc.PermissionStatus.denied) {
+      _permissionGranted = await _locationController.requestPermission();
+      if (_permissionGranted != loc.PermissionStatus.granted) {
+        return;
+      }
+    }
+
+    final loc.LocationData _locationData = await _locationController.getLocation();
+    final LatLng currentLatLng = LatLng(_locationData.latitude!, _locationData.longitude!);
+
+    setState(() {
+      _currentLocation = currentLatLng;
+    });
+
+    _reverseGeocodeLatLng(currentLatLng);
+  }
+
   // Method to reverse geocode a LatLng position
   Future<void> _reverseGeocodeLatLng(LatLng latLng) async {
     try {
@@ -47,11 +85,15 @@ class _MapPageState extends State<MapPage> {
       if (placemarks.isNotEmpty) {
         Placemark place = placemarks[0];
         setState(() {
+          _currentCity = place.locality ?? 'Unknown';
           cityController.text = place.locality ?? '';
           countryController.text = place.country ?? '';
           districtController.text = place.subLocality ?? '';
           streetController.text = place.street ?? '';
         });
+        _mapController.animateCamera(
+          CameraUpdate.newLatLngZoom(latLng, 13),
+        );
       }
     } catch (e) {
       print(e);
@@ -72,9 +114,9 @@ class _MapPageState extends State<MapPage> {
               Icons.location_on,
               color: Color(0xFFFFE724C),
             ),
-            const Text(
-              "İzmir, Turkey",
-              style: TextStyle(
+            Text(
+              _currentCity,
+              style: const TextStyle(
                 color: Colors.black,
                 fontSize: 14,
               ),
@@ -178,15 +220,18 @@ class _MapPageState extends State<MapPage> {
           ),
         ),
         body: GoogleMap(
-          initialCameraPosition: const CameraPosition(target: _pGooglePlex, zoom: 13),
+          initialCameraPosition: CameraPosition(target: _currentLocation, zoom: 13),
+          onMapCreated: (GoogleMapController controller) {
+            _mapController = controller;
+          },
           onTap: (LatLng latLng) {
             _reverseGeocodeLatLng(latLng);
           },
           markers: {
-            const Marker(
-              markerId: MarkerId("_currentLocation"),
+            Marker(
+              markerId: const MarkerId("_currentLocation"),
               icon: BitmapDescriptor.defaultMarker,
-              position: _pGooglePlex,
+              position: _currentLocation,
             ),
           },
         ),
@@ -199,19 +244,19 @@ class _MapPageState extends State<MapPage> {
         tabBackgroundColor: Colors.grey.shade800,
         activeColor: Colors.white,
         tabs: [
-          GButton(
+          const GButton(
             icon: Icons.home,
             text: "Home",
           ),
-          GButton(
+          const GButton(
             icon: Icons.search,
             text: "Search",
           ),
-          GButton(
+          const GButton(
             icon: Icons.favorite_border,
             text: "Favorites",
           ),
-          GButton(
+          const GButton(
             icon: Icons.settings,
             text: "Settings",
           ),
