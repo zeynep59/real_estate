@@ -3,6 +3,7 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:flutter/services.dart'; // Import this package for SystemNavigator.pop()
 
 import '../theme/theme.dart';
+import 'profile.dart'; // Import the Profile page
 
 class Settings extends StatefulWidget {
   const Settings({super.key});
@@ -61,6 +62,10 @@ class _SettingsState extends State<Settings> {
                       subtitle: const Text('Edit your profile details'),
                       onTap: () {
                         // Navigate to profile edit screen
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const Profile()),
+                        );
                       },
                     ),
                     ListTile(
