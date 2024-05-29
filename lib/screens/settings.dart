@@ -143,7 +143,7 @@ class _SettingsState extends State<Settings> {
                       title: const Text('Logout'),
                       onTap: () {
                         // Handle logout
-                        SystemNavigator.pop(); // This will exit the app
+                        Navigator.pushReplacementNamed(context, '/sign_in'); // Redirect to sign-in screen
                       },
                     ),
                   ],
