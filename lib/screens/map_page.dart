@@ -225,6 +225,9 @@ class _MapPageState extends State<MapPage> {
             _mapController = controller;
           },
           onTap: (LatLng latLng) {
+            setState(() {
+              _currentLocation = latLng;
+            });
             _reverseGeocodeLatLng(latLng);
           },
           markers: {
