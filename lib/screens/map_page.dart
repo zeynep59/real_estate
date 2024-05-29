@@ -85,11 +85,11 @@ class _MapPageState extends State<MapPage> {
       if (placemarks.isNotEmpty) {
         Placemark place = placemarks[0];
         setState(() {
-          _currentCity = place.locality ?? 'Unknown';
-          cityController.text = place.locality ?? '';
+          _currentCity = place.administrativeArea ?? 'Unknown';
+          cityController.text = place.administrativeArea ?? '';
           countryController.text = place.country ?? '';
-          districtController.text = place.subLocality ?? '';
-          streetController.text = place.street ?? '';
+          districtController.text = place.subAdministrativeArea ?? '';
+          streetController.text = place.name ?? '';
         });
         _mapController.animateCamera(
           CameraUpdate.newLatLngZoom(latLng, 13),
