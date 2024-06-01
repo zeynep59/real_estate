@@ -5,7 +5,7 @@ import 'package:location/location.dart' as loc; // Use alias 'loc' for the 'loca
 import 'package:real_estate/screens/stepper_formPage.dart';
 import 'package:real_estate/widgets/search_field.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-
+import 'package:real_estate/screens/professionels.dart';
 import 'package:geocoding/geocoding.dart'; // Geocoding package for reverse geocoding
 import 'package:real_estate/services/database_service.dart';
 import 'package:real_estate/screens/settings.dart';
@@ -265,7 +265,10 @@ class _MapPageState extends State<MapPage> {
           ),
         ],
         onTabChange: (index) {
-          if (index == 3) {
+          if (index == 1){
+            Navigator.pushNamed(context, '/professionels');
+          }
+          else if (index == 3) {
             Navigator.pushNamed(context, '/settings');
           }
         },

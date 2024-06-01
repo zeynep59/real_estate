@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:real_estate/models/professionel.dart';
 
 class FirebaseAuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -63,6 +64,28 @@ class FirebaseAuthService {
       }
     } catch (e) {
       throw Exception("Error occurred during password change: $e");
+    }
+  }
+  Future<void> signOut() async {
+    await _auth.signOut();
+  }
+
+  Future<List<Professional>> fetchProfessionals() async {
+    try {
+      QuerySnapshot snapshot = await _firestore.collection('pro').get();
+      print('Fetched ${snapshot.docs.length} documents');
+      if (snapshot.docs.isEmpty) {
+        print('No documents found in "pro" collection');
+      }
+      return snapshot.docs
+          .map((doc) {
+        print('Document data: ${doc.data()}');
+        return Professional.fromFirestore(doc.data() as Map<String, dynamic>);
+      })
+          .toList();
+    } catch (e) {
+      print('Error fetching professionals: $e');
+      return [];
     }
   }
 }
