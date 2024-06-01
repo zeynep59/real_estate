@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:real_estate/firebase_auth/firebase_auth_services.dart';
 import 'edit_profile.dart';
+import 'change_password.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -70,6 +71,16 @@ class _ProfileState extends State<Profile> {
                 );
               },
               child: const Text('Edit Profile Information'),
+            ),
+            const SizedBox(height: 10),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ChangePassword()),
+                );
+              },
+              child: const Text('Change Password'),
             ),
           ],
         ),

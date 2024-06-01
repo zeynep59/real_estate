@@ -47,4 +47,22 @@ class FirebaseAuthService {
     }
     return {};
   }
+  // Method to change user password
+  Future<void> changePassword(String oldPassword, String newPassword) async {
+    try {
+      User? user = _auth.currentUser;
+      if (user != null) {
+        String email = user.email ?? '';
+
+        // Re-authenticate user
+        AuthCredential credential = EmailAuthProvider.credential(email: email, password: oldPassword);
+        await user.reauthenticateWithCredential(credential);
+
+        // Update password
+        await user.updatePassword(newPassword);
+      }
+    } catch (e) {
+      throw Exception("Error occurred during password change: $e");
+    }
+  }
 }
