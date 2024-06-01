@@ -1,10 +1,47 @@
 from flask import Flask, request, jsonify
 import joblib
+import pandas as pd
+import logging
+import numpy as np
 
 app = Flask(__name__)
 
+# Configure logging
+logging.basicConfig(level=logging.DEBUG)
+
 # Load your trained model
-model = joblib.load('path_to_your_trained_model.pkl')
+model_path = 'C:\\Users\\oztur\\Documents\\real_estate\\functions\\rf_model.pkl'
+model = joblib.load(model_path)
+
+def preprocess_input(data):
+    try:
+        # Convert input data to DataFrame
+        input_df = pd.DataFrame([data])
+
+        # Categorical columns to be one-hot encoded
+        categorical_columns = ['district', 'item', 'floor', 'heating', 'site']
+        
+        # Ensure all required columns are in the input data
+        for col in categorical_columns:
+            if col not in input_df.columns:
+                input_df[col] = None  # or set a default value
+
+        # One-hot encode categorical features
+        input_df = pd.get_dummies(input_df, columns=categorical_columns, drop_first=True)
+
+        # Ensure all columns expected by the model are present
+        expected_columns = model.feature_names_in_
+        for col in expected_columns:
+            if col not in input_df.columns:
+                input_df[col] = 0
+
+        # Reorder columns to match the model's training
+        input_df = input_df[expected_columns]
+        
+        return input_df
+    except Exception as e:
+        logging.exception("An error occurred during preprocessing")
+        raise e
 
 # Define a route for your prediction API
 @app.route('/predict', methods=['POST'])
@@ -12,39 +49,27 @@ def predict():
     try:
         # Get JSON request data
         data = request.get_json()
+        logging.debug(f"Incoming data: {data}")
 
-        # Extract features from JSON
-        squaremeter = data['squaremeter']
-        numberOfRooms = data['numberOfRooms']
-        numberOfHalls = data['numberOfHalls']
-        numberOfBaths = data['numberOfBaths']
-        buildingAge = data['buildingAge']
-        numberOfFloors = data['numberOfFloors']
-        grossArea = data['grossArea']
-        terraceArea = data['terraceArea']
-        facade = data['facade']
-        landscape = data['landscape']
-        opportunities = data['opportunities']
-        heating = data['heating']
-
-        # Convert opportunities to string
-        opportunities = ', '.join(opportunities)
+        # Preprocess the input data
+        df = preprocess_input(data)
+        logging.debug(f"Preprocessed data: {df}")
 
         # Make prediction
-        prediction = model.predict([[squaremeter, numberOfRooms, numberOfHalls, numberOfBaths,
-                                      buildingAge, numberOfFloors, grossArea, terraceArea, facade, landscape,
-                                      opportunities, heating]])
+        prediction = model.predict(df)
+        logging.debug(f"Prediction: {prediction[0]}")
 
         # Return JSON response
         response = {'predictedPrice': float(prediction[0])}  # Convert prediction to float
         return jsonify(response)
 
     except Exception as e:
+        logging.exception("An error occurred during prediction")
         return jsonify({'error': str(e)}), 400
 
 if __name__ == '__main__':
-    app.run(debug=True)
-
-
-
-# predict_price("bagcilar", "Boş","ÇatıKatı","Heating_Klimalı","Hayır",50, 3, 0,5,1)
+    try:
+        app.run(debug=True, host='0.0.0.0')
+    except Exception as e:
+        logging.exception("Failed to start the Flask application")
+        raise

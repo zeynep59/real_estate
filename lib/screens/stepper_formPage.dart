@@ -256,24 +256,26 @@ class _MyStepperState extends State<MyStepper> {
 
             String jsonData = jsonEncode(house.toJson());
             // Send JSON data to Flask API
-            var response = await http.post(
-              Uri.parse("http://127.0.0.1:5000/predict"),
-              body: jsonData,
-              headers: {
-                'Content-Type':
-                    'application/json', // Set Content-Type header correctly
-                'Accept': 'application/json',
-              },
-            );
+            try {
+              var response = await http.post(
+                Uri.parse(
+                    "http://10.0.2.2:5000/predict"), // Use 10.0.2.2 for Android emulator
+                body: jsonData,
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Accept': 'application/json',
+                },
+              );
 
-            if (response.statusCode == 200) {
-              // Successfully sent data to Flask API
-              print('House data sent successfully');
-            } else {
-              // Failed to send data to Flask API
-              print('Failed to send house data: ${response.statusCode}');
+              if (response.statusCode == 200) {
+                print('House data sent successfully');
+              } else {
+                print('Failed to send house data: ${response.statusCode}');
+                print('Response body: ${response.body}');
+              }
+            } catch (e) {
+              print('Error: $e');
             }
-            //the house attributed will be send to model and get result
           }
         },
         onStepCancel: () {
