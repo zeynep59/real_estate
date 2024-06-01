@@ -81,6 +81,7 @@ class _MyStepperState extends State<MyStepper> {
   String selectedHeatingSystem = '';
   bool valueAndRent = false;
   int value1 = 1780;
+  double predictedPrice = 0.0;
   int value2 = 1980;
   List<String> oppurtunities = [
     'On the motorway',
@@ -109,6 +110,7 @@ class _MyStepperState extends State<MyStepper> {
     super.initState();
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       address = ModalRoute.of(context)!.settings.arguments as Address;
+      predictedPrice = predictedPrice;
       setState(() {
         structureStatus = 'Well Maintained/Renovated';
       });
@@ -258,8 +260,7 @@ class _MyStepperState extends State<MyStepper> {
             // Send JSON data to Flask API
             try {
               var response = await http.post(
-                Uri.parse(
-                    "http://10.0.2.2:5000/predict"), // Use 10.0.2.2 for Android emulator
+                Uri.parse("http://10.0.2.2:5000/predict"),
                 body: jsonData,
                 headers: {
                   'Content-Type': 'application/json',
@@ -267,11 +268,15 @@ class _MyStepperState extends State<MyStepper> {
                 },
               );
 
+              print('Response status: ${response.statusCode}');
+              print('Response body: ${response.body}');
+
               if (response.statusCode == 200) {
                 print('House data sent successfully');
+                var jsonResponse = jsonDecode(response.body);
+                predictedPrice = jsonResponse['predictedPrice'];
               } else {
                 print('Failed to send house data: ${response.statusCode}');
-                print('Response body: ${response.body}');
               }
             } catch (e) {
               print('Error: $e');
@@ -1058,7 +1063,7 @@ class _MyStepperState extends State<MyStepper> {
                                 borderRadius: BorderRadius.circular(5),
                               ),
                               child: Text(
-                                '${value1}₺',
+                                '${predictedPrice.toStringAsFixed(2)}₺', // Show predictedPrice instead of price1
                                 style: TextStyle(
                                     fontSize: 35,
                                     fontWeight: FontWeight.bold,
