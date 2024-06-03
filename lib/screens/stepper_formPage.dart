@@ -5,6 +5,7 @@ import '../theme/theme.dart';
 import 'package:real_estate/services/database_service.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:gif/gif.dart';
 
 class StepperPage extends StatelessWidget {
   @override
@@ -1028,23 +1029,23 @@ class _MyStepperState extends State<MyStepper> {
                     ),
                   ),
                   const SizedBox(height: 20), // Bir boşluk ekleyin
-                  const Row(
-                    children: [
-                      Icon(
-                        Icons.location_on,
-                        color: Colors.red, // İstediğiniz renk
-                        size: 24, // İstediğiniz boyut
-                      ),
-                      SizedBox(width: 10), // Araya bir boşluk ekleyin
-                      Text(
-                        'Location',
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFFFE724C)),
-                      ),
-                    ],
-                  ),
+                  // const Row(
+                  //   children: [
+                  //     Icon(
+                  //       Icons.location_on,
+                  //       color: Colors.red, // İstediğiniz renk
+                  //       size: 24, // İstediğiniz boyut
+                  //     ),
+                  //     SizedBox(width: 10), // Araya bir boşluk ekleyin
+                  //     Text(
+                  //       "Location",
+                  //       style: TextStyle(
+                  //           fontSize: 16,
+                  //           fontWeight: FontWeight.bold,
+                  //           color: Color(0xFFFE724C)),
+                  //     ),
+                  //   ],
+                  // ),
                   const SizedBox(height: 5), // Bir boşluk ekleyin
                   Center(
                     child: Column(
@@ -1072,13 +1073,7 @@ class _MyStepperState extends State<MyStepper> {
                             ),
                             const SizedBox(
                                 width: 5), // Araya bir boşluk ekleyin
-                            const Text(
-                              '-',
-                              style: TextStyle(
-                                  fontSize: 35,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black),
-                            ),
+
                             const SizedBox(
                                 width: 5), // Araya bir boşluk ekleyin
                             Container(
@@ -1089,13 +1084,13 @@ class _MyStepperState extends State<MyStepper> {
                                     color: Colors.grey.withOpacity(0)),
                                 borderRadius: BorderRadius.circular(5),
                               ),
-                              child: Text(
-                                '${value2}₺',
-                                style: TextStyle(
-                                    fontSize: 35,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black),
-                              ),
+                              // child: Text(
+                              //   '${value2}₺',
+                              //   style: TextStyle(
+                              //       fontSize: 35,
+                              //       fontWeight: FontWeight.bold,
+                              //       color: Colors.black),
+                              // ),
                             ),
                           ],
                         ),
@@ -1141,24 +1136,6 @@ class _MyStepperState extends State<MyStepper> {
                                     color: Colors.grey.withOpacity(0)),
                                 borderRadius: BorderRadius.circular(5),
                               ),
-                              child: const Column(
-                                children: [
-                                  Text(
-                                    '6-12 months predicted',
-                                    style: TextStyle(
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.normal,
-                                        color: Colors.black),
-                                  ),
-                                  Text(
-                                    ' Disposal time',
-                                    style: TextStyle(
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.normal,
-                                        color: Colors.black),
-                                  ),
-                                ],
-                              ),
                             ),
                           ],
                         ),
@@ -1176,113 +1153,16 @@ class _MyStepperState extends State<MyStepper> {
                                     color: Color(0xFFD7D7D7).withOpacity(1)),
                                 borderRadius: BorderRadius.circular(35),
                               ),
-                              child: const Column(
-                                children: [
-                                  SizedBox(height: 15),
-                                  Text(
-                                    'First Box Text 1',
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white),
-                                  ),
-                                  SizedBox(height: 15),
-                                  Text(
-                                    'First Box Text 2',
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white),
-                                  ),
-                                  SizedBox(height: 15),
-                                  Text(
-                                    'First Box Text 3',
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white),
-                                  ),
-                                ],
+                              child: Image(
+                                image: AssetImage(
+                                    'assets/calculateGif.gif'), // Use AssetImage to load the GIF
                               ),
                             ),
                             const SizedBox(
                                 height: 20), // Araya bir boşluk ekleyin
-                            Container(
-                              height: 150,
-                              width: 300,
-                              padding: const EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                color: const Color(0xFFFFC529),
-                                border: Border.all(
-                                    color: Color(0xFFD7D7D7).withOpacity(1)),
-                                borderRadius: BorderRadius.circular(35),
-                              ),
-                              child: const Column(
-                                children: [
-                                  SizedBox(height: 15),
-                                  Text(
-                                    'Second Box Text 1',
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white),
-                                  ),
-                                  SizedBox(height: 15),
-                                  Text(
-                                    'Second Box Text 2',
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white),
-                                  ),
-                                ],
-                              ),
-                            ),
+
                             const SizedBox(
                                 height: 20), // Araya bir boşluk ekleyin
-                            Container(
-                              width: 300,
-                              height: 150,
-                              padding: const EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                color: const Color(0xFFFE724C),
-                                border: Border.all(
-                                    color: Color(0xFFD7D7D7).withOpacity(1)),
-                                borderRadius: BorderRadius.circular(35),
-                              ),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  const Text(
-                                    'Third Box Text 1',
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white),
-                                  ),
-                                  const SizedBox(height: 10),
-                                  const Expanded(
-                                    child: TextField(
-                                      textAlign: TextAlign.center,
-                                      decoration: InputDecoration(
-                                        hintText: '_ _ _',
-                                        hintStyle:
-                                            TextStyle(color: Colors.black),
-                                        border: InputBorder.none,
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(height: 10),
-                                  Text(
-                                    '${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}',
-                                    style: const TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white),
-                                  ),
-                                ],
-                              ),
-                            ),
                           ],
                         ),
                       ],
