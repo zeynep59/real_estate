@@ -91,55 +91,55 @@ class WelcomePage extends StatelessWidget {
               ),
               Spacer(),
               SizedBox(height: 20), // Added space before the additional button
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/form_page');
-                },
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  backgroundColor:
-                      Colors.transparent, // Set background color to transparent
-                  shadowColor:
-                      Colors.transparent, // Set shadow color to transparent
-                  elevation: 0, // Set elevation to 0 to remove shadow
-                ),
-                child: Text(
-                  'map', // Customize text as needed
-                  style: TextStyle(
-                    color: Colors.white, // Set text color to blue
-                    fontSize: 18,
-                    decoration: TextDecoration.underline, // Underline the text
-                  ),
-                ),
-              ),
-              SizedBox(height: 20), // Added space before the additional button
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/form_page');
-                },
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  backgroundColor:
-                      Colors.transparent, // Set background color to transparent
-                  shadowColor:
-                      Colors.transparent, // Set shadow color to transparent
-                  elevation: 0, // Set elevation to 0 to remove shadow
-                ),
-                child: Text(
-                  'form', // Customize text as needed
-                  style: TextStyle(
-                    color: Colors.white, // Set text color to blue
-                    fontSize: 18,
-                    decoration: TextDecoration.underline, // Underline the text
-                  ),
-                ),
-              ),
+              // ElevatedButton(
+              //   onPressed: () {
+              //     Navigator.pushNamed(context, '/form_page');
+              //   },
+              //   style: ElevatedButton.styleFrom(
+              //     shape: RoundedRectangleBorder(
+              //       borderRadius: BorderRadius.circular(20),
+              //     ),
+              //     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              //     backgroundColor:
+              //         Colors.transparent, // Set background color to transparent
+              //     shadowColor:
+              //         Colors.transparent, // Set shadow color to transparent
+              //     elevation: 0, // Set elevation to 0 to remove shadow
+              //   ),
+              //   child: Text(
+              //     'map', // Customize text as needed
+              //     style: TextStyle(
+              //       color: Colors.white, // Set text color to blue
+              //       fontSize: 18,
+              //       decoration: TextDecoration.underline, // Underline the text
+              //     ),
+              //   ),
+              // ),
+              // SizedBox(height: 20), // Added space before the additional button
+              // ElevatedButton(
+              //   onPressed: () {
+              //     Navigator.pushNamed(context, '/form_page');
+              //   },
+              //   style: ElevatedButton.styleFrom(
+              //     shape: RoundedRectangleBorder(
+              //       borderRadius: BorderRadius.circular(20),
+              //     ),
+              //     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              //     backgroundColor:
+              //         Colors.transparent, // Set background color to transparent
+              //     shadowColor:
+              //         Colors.transparent, // Set shadow color to transparent
+              //     elevation: 0, // Set elevation to 0 to remove shadow
+              //   ),
+              //   child: Text(
+              //     'form', // Customize text as needed
+              //     style: TextStyle(
+              //       color: Colors.white, // Set text color to blue
+              //       fontSize: 18,
+              //       decoration: TextDecoration.underline, // Underline the text
+              //     ),
+              //   ),
+              // ),
             ],
           ),
         ],
