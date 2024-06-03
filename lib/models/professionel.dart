@@ -21,7 +21,9 @@ class Professional {
       phone: data['phone']?.toString() ?? '',
       photo: data['photo']?.toString() ?? '',
       place: data['place']?.toString() ?? '',
-      score: data['score'] is int ? data['score'] : int.tryParse(data['score']?.toString() ?? '0') ?? 0,
+      score: data['score'] is int
+          ? data['score']
+          : int.tryParse(data['score']?.toString() ?? '0') ?? 0,
       bio: data['bio']?.toString() ?? '',
     );
   }
