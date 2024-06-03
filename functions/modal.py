@@ -469,25 +469,71 @@ joblib.dump(rf_reg, 'rf_model.pkl')
 # %%
 df10.columns
 
-def predict_price(district, item,floor,heating,site, sqmt, room, hall,age,wc):
-    dist_index = np.where(X.columns == district)[0][0] # District indices
-    item_index = np.where(X.columns == item)[0][0] # Item indices
-    floor_index = np.where(X.columns == item)[0][0] # Item indices
-    heating_index = np.where(X.columns == item)[0][0] # Item indices
-    site_index = np.where(X.columns == item)[0][0] # Item indices
-    # Variables and indices on columns
+# def predict_price(district, item,floor,heating,site, sqmt, room, hall,age,wc):
+#     dist_index = np.where(X.columns == district)[0][0] # District indices
+#     item_index = np.where(X.columns == item)[0][0] # Item indices
+#     floor_index = np.where(X.columns == item)[0][0] # Item indices
+#     heating_index = np.where(X.columns == item)[0][0] # Item indices
+#     site_index = np.where(X.columns == item)[0][0] # Item indices
+#     # Variables and indices on columns
+#     x = np.zeros(len(X.columns))
+#     x[0] = sqmt
+#     x[1] = room
+#     x[2] = hall
+#     x[3] = age
+#     x[4] = wc
+#     if dist_index >= 0:
+#         x[dist_index] = 1
+#         x[item_index] = 1
+#         x[floor_index] = 1
+#         x[heating_index] = 1
+#         x[site_index] = 1
+#     return "Estimated Price: " + str(round(rf_reg.predict([x])[0])) + " TL"
+
+# predict_price("bahçelievler", "Boş","ÇatıKatı","Heating_Klimalı","Hayır",120, 2, 1,10,1)
+
+
+import numpy as np
+
+def predict_price(district, item, floor, heating, site, sqmt, room, hall, age, wc):
+    # Check if column names exist in X.columns
+    if district not in X.columns:
+        return f"Error: District '{district}' not found in dataset columns."
+    if item not in X.columns:
+        return f"Error: Item '{item}' not found in dataset columns."
+    if floor not in X.columns:
+        return f"Error: Floor '{floor}' not found in dataset columns."
+    if heating not in X.columns:
+        return f"Error: Heating '{heating}' not found in dataset columns."
+    if site not in X.columns:
+        return f"Error: Site '{site}' not found in dataset columns."
+    
+    dist_index = np.where(X.columns == district)[0][0]  # District index
+    item_index = np.where(X.columns == item)[0][0]      # Item index
+    floor_index = np.where(X.columns == floor)[0][0]    # Floor index
+    heating_index = np.where(X.columns == heating)[0][0]# Heating index
+    site_index = np.where(X.columns == site)[0][0]      # Site index
+
+    # Create feature array
     x = np.zeros(len(X.columns))
     x[0] = sqmt
     x[1] = room
     x[2] = hall
     x[3] = age
     x[4] = wc
-    if dist_index >= 0:
-        x[dist_index] = 1
-        x[item_index] = 1
-        x[floor_index] = 1
-        x[heating_index] = 1
-        x[site_index] = 1
-    return "Estimated Price: " + str(round(rf_reg.predict([x])[0])) + " TL"
+    
+    # Assign values for categorical variables
+    x[dist_index] = 1
+    x[item_index] = 1
+    x[floor_index] = 1
+    x[heating_index] = 1
+    x[site_index] = 1
 
-predict_price("izkent", "Boş","ÇatıKatı","Heating_Klimalı","Hayır",120, 2, 1,10,1)
+    # Predict and return the price
+    estimated_price = round(rf_reg.predict([x])[0])
+    return f"Estimated Price: {estimated_price} TL"
+
+# joblib.dump(rf_reg, 'functions/model.pkl')
+
+# Example call to the function
+print(predict_price("arnavutkoy", "Boş", "ÇatıKatı", "Heating_Klimalı", "Hayır", 120, 2, 1, 10, 1))
