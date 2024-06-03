@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:flutter/services.dart'; // Import this package for SystemNavigator.pop()
+import 'package:real_estate/screens/professionels.dart';
 
 import '../theme/theme.dart';
 import 'profile.dart'; // Import the Profile page
@@ -143,7 +144,7 @@ class _SettingsState extends State<Settings> {
                       title: const Text('Logout'),
                       onTap: () {
                         // Handle logout
-                        SystemNavigator.pop(); // This will exit the app
+                        Navigator.pushReplacementNamed(context, '/sign_in'); // Redirect to sign-in screen
                       },
                     ),
                   ],
@@ -185,7 +186,7 @@ class _SettingsState extends State<Settings> {
               if (index == 0) {
                 Navigator.pushNamed(context, '/map_page');
               } else if (index == 1) {
-                Navigator.pushNamed(context, '/search');
+                Navigator.pushNamed(context, '/professionels');
               } else if (index == 2) {
                 Navigator.pushNamed(context, '/favorites');
               } else if (index == 3) {

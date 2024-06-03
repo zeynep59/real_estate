@@ -5,7 +5,7 @@ import 'package:location/location.dart' as loc; // Use alias 'loc' for the 'loca
 import 'package:real_estate/screens/stepper_formPage.dart';
 import 'package:real_estate/widgets/search_field.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-
+import 'package:real_estate/screens/professionels.dart';
 import 'package:geocoding/geocoding.dart'; // Geocoding package for reverse geocoding
 import 'package:real_estate/services/database_service.dart';
 import 'package:real_estate/screens/settings.dart';
@@ -85,11 +85,11 @@ class _MapPageState extends State<MapPage> {
       if (placemarks.isNotEmpty) {
         Placemark place = placemarks[0];
         setState(() {
-          _currentCity = place.locality ?? 'Unknown';
-          cityController.text = place.locality ?? '';
+          _currentCity = place.administrativeArea ?? 'Unknown';
+          cityController.text = place.administrativeArea ?? '';
           countryController.text = place.country ?? '';
-          districtController.text = place.subLocality ?? '';
-          streetController.text = place.street ?? '';
+          districtController.text = place.subAdministrativeArea ?? '';
+          streetController.text = place.name ?? '';
         });
         _mapController.animateCamera(
           CameraUpdate.newLatLngZoom(latLng, 13),
@@ -225,6 +225,9 @@ class _MapPageState extends State<MapPage> {
             _mapController = controller;
           },
           onTap: (LatLng latLng) {
+            setState(() {
+              _currentLocation = latLng;
+            });
             _reverseGeocodeLatLng(latLng);
           },
           markers: {
@@ -262,7 +265,10 @@ class _MapPageState extends State<MapPage> {
           ),
         ],
         onTabChange: (index) {
-          if (index == 3) {
+          if (index == 1){
+            Navigator.pushNamed(context, '/professionels');
+          }
+          else if (index == 3) {
             Navigator.pushNamed(context, '/settings');
           }
         },
