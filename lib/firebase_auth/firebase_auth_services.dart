@@ -1,14 +1,19 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:real_estate/models/professionel.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class FirebaseAuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
 
-  Future<User?> signInWithEmailAndPassword(String email, String password) async {
+  Future<User?> signInWithEmailAndPassword(
+      String email, String password) async {
     try {
-      UserCredential credential = await _auth.signInWithEmailAndPassword(email: email, password: password);
+      UserCredential credential = await _auth.signInWithEmailAndPassword(
+          email: email, password: password);
       return credential.user;
     } catch (e) {
       print("Some error occurred: $e");
@@ -16,9 +21,11 @@ class FirebaseAuthService {
     }
   }
 
-  Future<User?> signUpWithEmailAndPassword(String email, String password) async {
+  Future<User?> signUpWithEmailAndPassword(
+      String email, String password) async {
     try {
-      UserCredential credential = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+      UserCredential credential = await _auth.createUserWithEmailAndPassword(
+          email: email, password: password);
       return credential.user;
     } catch (e) {
       print("Some error occurred: $e");
@@ -43,11 +50,13 @@ class FirebaseAuthService {
   Future<Map<String, dynamic>> getUserProfile() async {
     User? user = _auth.currentUser;
     if (user != null) {
-      DocumentSnapshot snapshot = await _firestore.collection('users').doc(user.uid).get();
+      DocumentSnapshot snapshot =
+          await _firestore.collection('users').doc(user.uid).get();
       return snapshot.data() as Map<String, dynamic>;
     }
     return {};
   }
+
   // Method to change user password
   Future<void> changePassword(String oldPassword, String newPassword) async {
     try {
@@ -56,7 +65,8 @@ class FirebaseAuthService {
         String email = user.email ?? '';
 
         // Re-authenticate user
-        AuthCredential credential = EmailAuthProvider.credential(email: email, password: oldPassword);
+        AuthCredential credential =
+            EmailAuthProvider.credential(email: email, password: oldPassword);
         await user.reauthenticateWithCredential(credential);
 
         // Update password
@@ -66,6 +76,7 @@ class FirebaseAuthService {
       throw Exception("Error occurred during password change: $e");
     }
   }
+
   Future<void> signOut() async {
     await _auth.signOut();
   }
@@ -77,15 +88,35 @@ class FirebaseAuthService {
       if (snapshot.docs.isEmpty) {
         print('No documents found in "pro" collection');
       }
-      return snapshot.docs
-          .map((doc) {
+      return snapshot.docs.map((doc) {
         print('Document data: ${doc.data()}');
         return Professional.fromFirestore(doc.data() as Map<String, dynamic>);
-      })
-          .toList();
+      }).toList();
     } catch (e) {
       print('Error fetching professionals: $e');
       return [];
+    }
+  }
+
+  Future<User?> signInWithGoogle() async {
+    try {
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+      if (googleUser == null) {
+        return null; // The user canceled the sign-in
+      }
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      UserCredential userCredential =
+          await _firebaseAuth.signInWithCredential(credential);
+      return userCredential.user;
+    } catch (e) {
+      print(e);
+      return null;
     }
   }
 }

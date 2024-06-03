@@ -25,6 +25,7 @@ dependencies:
   geolocator: ^11.0.0
   gif: ^2.3.0
   video_player: ^2.8.6
+  google_sign_in: ^6.2.1
   
 
 dev_dependencies:

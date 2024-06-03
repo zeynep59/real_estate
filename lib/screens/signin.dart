@@ -7,7 +7,6 @@ import 'package:real_estate/firebase_auth/firebase_auth_services.dart';
 import '../theme/theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
 
@@ -218,14 +217,22 @@ class _SignInScreenState extends State<SignInScreen> {
                       const SizedBox(
                         height: 25.0,
                       ),
-                      // Social media icons
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Icon(Icons.facebook, color: Colors.blue),
-                          Icon(Icons.apple, color: Colors.black),
-                        ],
+                      ElevatedButton.icon(
+                        icon: Icon(Icons.g_mobiledata, color: Colors.white),
+                        label: Text('Sign in with Google'),
+                        // style: ElevatedButton.styleFrom(
+                        //   primary: Colors.red, // Background color
+                        //   onPrimary: Colors.white, // Text color
+                        // ),
+                        onPressed: _signInWithGoogle,
                       ),
+                      // Social media icons
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      //   children: [
+                      //     Icon(Icons.facebook, color: Colors.blue),
+                      //   ],
+                      // ),
                       const SizedBox(
                         height: 25.0,
                       ),
@@ -294,6 +301,26 @@ class _SignInScreenState extends State<SignInScreen> {
           ),
         );
       }
+    }
+  }
+
+  void _signInWithGoogle() async {
+    User? user = await _auth.signInWithGoogle();
+    if (user != null) {
+      print("User signed in with Google successfully");
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => MapPage(),
+        ),
+      );
+    } else {
+      print("Google sign in failed");
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Google sign in failed. Please try again.'),
+        ),
+      );
     }
   }
 }

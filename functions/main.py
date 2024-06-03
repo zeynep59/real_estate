@@ -10,7 +10,7 @@ app = Flask(__name__)
 logging.basicConfig(level=logging.DEBUG)
 
 # Load your trained model
-model_path = 'C:\\Users\\oztur\\Documents\\real_estate\\functions\\rf_model.pkl'
+model_path = 'C:\\Users\\oztur\\Documents\\real_estate\\functions\\model.pkl'
 model = joblib.load(model_path)
 
 def preprocess_input(data):
@@ -20,14 +20,14 @@ def preprocess_input(data):
 
         # Categorical columns to be one-hot encoded
         categorical_columns = ['district', 'item', 'floor', 'heating', 'site']
-        
+
         # Ensure all required columns are in the input data
         for col in categorical_columns:
             if col not in input_df.columns:
                 input_df[col] = None  # or set a default value
 
         # One-hot encode categorical features
-        input_df = pd.get_dummies(input_df, columns=categorical_columns, drop_first=True)
+        input_df = pd.get_dummies(input_df, columns=categorical_columns, drop_first=False)  # Use drop_first=False to match training
 
         # Ensure all columns expected by the model are present
         expected_columns = model.feature_names_in_
@@ -37,7 +37,9 @@ def preprocess_input(data):
 
         # Reorder columns to match the model's training
         input_df = input_df[expected_columns]
-        
+
+        logging.debug(f"Preprocessed input data: {input_df}")
+
         return input_df
     except Exception as e:
         logging.exception("An error occurred during preprocessing")

@@ -207,6 +207,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           onPressed: () {
                             if (_formSignupKey.currentState!.validate() &&
                                 agreePersonalData) {
+                              _signUp();
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
                                   content: Text('Processing Data'),
@@ -260,13 +261,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         height: 30.0,
                       ),
                       // sign up social media logo
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Icon(Icons.facebook, color: Colors.blue),
-                          Icon(Icons.apple, color: Colors.black),
-                        ],
-                      ),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      //   children: [
+                      //     Icon(Icons.facebook, color: Colors.blue),
+                      //     Icon(Icons.apple, color: Colors.black),
+                      //   ],
+                      // ),
+
                       const SizedBox(
                         height: 25.0,
                       ),

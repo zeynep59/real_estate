@@ -1003,6 +1003,7 @@ class _MyStepperState extends State<MyStepper> {
                             onChanged: (bool value) {
                               setState(() {
                                 valueAndRent = value;
+                                predictedPrice = predictedPrice;
                                 // Switch değiştiğinde değerlerin güncellenmesi
                                 if (valueAndRent) {
                                   value1 = 2000;
