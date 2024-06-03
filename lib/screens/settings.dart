@@ -89,17 +89,6 @@ class _SettingsState extends State<Settings> {
                     ),
                     ListTile(
                       leading: Icon(
-                        Icons.lock,
-                        color: lightColorScheme.primary,
-                      ),
-                      title: const Text('Privacy'),
-                      subtitle: const Text('Privacy and security settings'),
-                      onTap: () {
-                        // Navigate to privacy settings screen
-                      },
-                    ),
-                    ListTile(
-                      leading: Icon(
                         Icons.palette,
                         color: lightColorScheme.primary,
                       ),
