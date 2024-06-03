@@ -70,5 +70,7 @@ dependencies {
     implementation "com.yandex.android:maps.mobile:4.5.1-full"
     implementation platform('com.google.firebase:firebase-bom:32.8.1')
     implementation 'com.google.firebase:firebase-analytics'
+    implementation("com.google.firebase:firebase-appcheck")
+
 
 }

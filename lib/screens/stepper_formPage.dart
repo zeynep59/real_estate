@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:real_estate/models/address.dart';
 import '../models/house.dart';
@@ -84,6 +85,7 @@ class _MyStepperState extends State<MyStepper> {
   int value1 = 1780;
   double predictedPrice = 0.0;
   int value2 = 1980;
+  final currentUser = FirebaseAuth.instance.currentUser!;
   List<String> oppurtunities = [
     'On the motorway',
     'On the Street',
@@ -250,9 +252,10 @@ class _MyStepperState extends State<MyStepper> {
               terraceArea: terraceArea.toDouble(),
               facade: selectedFacade,
               landscape: selectedLandscape,
-              price: 0,
+              price: predictedPrice,
               opportunities: SelectedOppurtunities,
               heating: selectedHeatingSystem,
+              userId: currentUser.uid,
             );
             //add given house to the firestore db
             _databaseService.addHouse(house);
