@@ -1,13 +1,75 @@
-# Welcome to Cloud Functions for Firebase for Python!
-# To get started, simply uncomment the below code or create your own.
-# Deploy with `firebase deploy`
+from flask import Flask, request, jsonify
+import joblib
+import pandas as pd
+import logging
+import numpy as np
 
-from firebase_functions import https_fn
-from firebase_admin import initialize_app
+app = Flask(__name__)
 
-# initialize_app()
-#
-#
-# @https_fn.on_request()
-# def on_request_example(req: https_fn.Request) -> https_fn.Response:
-#     return https_fn.Response("Hello world!")
+# Configure logging
+logging.basicConfig(level=logging.DEBUG)
+
+# Load your trained model
+model_path = 'C:\\Users\\oztur\\Documents\\real_estate\\functions\\rf_model.pkl'
+model = joblib.load(model_path)
+
+def preprocess_input(data):
+    try:
+        # Convert input data to DataFrame
+        input_df = pd.DataFrame([data])
+
+        # Categorical columns to be one-hot encoded
+        categorical_columns = ['district', 'item', 'floor', 'heating', 'site']
+        
+        # Ensure all required columns are in the input data
+        for col in categorical_columns:
+            if col not in input_df.columns:
+                input_df[col] = None  # or set a default value
+
+        # One-hot encode categorical features
+        input_df = pd.get_dummies(input_df, columns=categorical_columns, drop_first=True)
+
+        # Ensure all columns expected by the model are present
+        expected_columns = model.feature_names_in_
+        for col in expected_columns:
+            if col not in input_df.columns:
+                input_df[col] = 0
+
+        # Reorder columns to match the model's training
+        input_df = input_df[expected_columns]
+        
+        return input_df
+    except Exception as e:
+        logging.exception("An error occurred during preprocessing")
+        raise e
+
+# Define a route for your prediction API
+@app.route('/predict', methods=['POST'])
+def predict():
+    try:
+        # Get JSON request data
+        data = request.get_json()
+        logging.debug(f"Incoming data: {data}")
+
+        # Preprocess the input data
+        df = preprocess_input(data)
+        logging.debug(f"Preprocessed data: {df}")
+
+        # Make prediction
+        prediction = model.predict(df)
+        logging.debug(f"Prediction: {prediction[0]}")
+
+        # Return JSON response
+        response = {'predictedPrice': float(prediction[0])}  # Convert prediction to float
+        return jsonify(response)
+
+    except Exception as e:
+        logging.exception("An error occurred during prediction")
+        return jsonify({'error': str(e)}), 400
+
+if __name__ == '__main__':
+    try:
+        app.run(debug=True, host='0.0.0.0')
+    except Exception as e:
+        logging.exception("Failed to start the Flask application")
+        raise

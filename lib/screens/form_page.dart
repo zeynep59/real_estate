@@ -14,9 +14,9 @@ class _FormPageState extends State<FormPage> {
     return Scaffold(
       bottomNavigationBar: GNav(
         gap: 8,
-        backgroundColor: Color(0xFF272D2F),
+        backgroundColor: const Color(0xFF272D2F),
         color: Colors.white,
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         tabBackgroundColor: Colors.grey.shade800,
         activeColor: Colors.white,
         tabs: const [
