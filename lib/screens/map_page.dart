@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:location/location.dart' as loc; // Use alias 'loc' for the 'location' package
+import 'package:location/location.dart'
+    as loc; // Use alias 'loc' for the 'location' package
 import 'package:real_estate/screens/stepper_formPage.dart';
 import 'package:real_estate/widgets/search_field.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
@@ -21,7 +22,8 @@ class MapPage extends StatefulWidget {
 }
 
 class _MapPageState extends State<MapPage> {
-  loc.Location _locationController = loc.Location(); // Use alias 'loc' for the 'location' package
+  loc.Location _locationController =
+      loc.Location(); // Use alias 'loc' for the 'location' package
   late GoogleMapController _mapController;
   LatLng _currentLocation = const LatLng(37.4223, -122.0848);
   String _currentCity = "Loading...";
@@ -68,8 +70,10 @@ class _MapPageState extends State<MapPage> {
       }
     }
 
-    final loc.LocationData _locationData = await _locationController.getLocation();
-    final LatLng currentLatLng = LatLng(_locationData.latitude!, _locationData.longitude!);
+    final loc.LocationData _locationData =
+        await _locationController.getLocation();
+    final LatLng currentLatLng =
+        LatLng(_locationData.latitude!, _locationData.longitude!);
 
     setState(() {
       _currentLocation = currentLatLng;
@@ -81,7 +85,8 @@ class _MapPageState extends State<MapPage> {
   // Method to reverse geocode a LatLng position
   Future<void> _reverseGeocodeLatLng(LatLng latLng) async {
     try {
-      List<Placemark> placemarks = await placemarkFromCoordinates(latLng.latitude, latLng.longitude);
+      List<Placemark> placemarks =
+          await placemarkFromCoordinates(latLng.latitude, latLng.longitude);
       if (placemarks.isNotEmpty) {
         Placemark place = placemarks[0];
         setState(() {
@@ -125,7 +130,8 @@ class _MapPageState extends State<MapPage> {
               width: 10,
             ), // Add some space between location and search field
             Expanded(
-              child: SearchFieldWithSelection(), // Use the custom SearchFieldWithSelection widget
+              child:
+                  SearchFieldWithSelection(), // Use the custom SearchFieldWithSelection widget
             ),
           ],
         ),
@@ -203,7 +209,8 @@ class _MapPageState extends State<MapPage> {
                           country: countryController.text,
                           district: districtController.text,
                           street: streetController.text,
-                          address: '${cityController.text}, ${countryController.text}, ${districtController.text}, ${streetController.text}',
+                          address:
+                              '${cityController.text}, ${countryController.text}, ${districtController.text}, ${streetController.text}',
                         ),
                       ),
                     ),
@@ -211,7 +218,8 @@ class _MapPageState extends State<MapPage> {
                 },
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(40), // Burada yuvarlaklık ayarlayabilirsiniz
+                    borderRadius: BorderRadius.circular(
+                        40), // Burada yuvarlaklık ayarlayabilirsiniz
                   ),
                 ),
                 child: const Text('Continue'),
@@ -220,7 +228,8 @@ class _MapPageState extends State<MapPage> {
           ),
         ),
         body: GoogleMap(
-          initialCameraPosition: CameraPosition(target: _currentLocation, zoom: 13),
+          initialCameraPosition:
+              CameraPosition(target: _currentLocation, zoom: 13),
           onMapCreated: (GoogleMapController controller) {
             _mapController = controller;
           },
@@ -252,8 +261,8 @@ class _MapPageState extends State<MapPage> {
             text: "Home",
           ),
           const GButton(
-            icon: Icons.search,
-            text: "Search",
+            icon: Icons.people_outline_rounded,
+            text: "Professionals",
           ),
           const GButton(
             icon: Icons.favorite_border,
@@ -265,10 +274,9 @@ class _MapPageState extends State<MapPage> {
           ),
         ],
         onTabChange: (index) {
-          if (index == 1){
+          if (index == 1) {
             Navigator.pushNamed(context, '/professionels');
-          }
-          else if (index == 3) {
+          } else if (index == 3) {
             Navigator.pushNamed(context, '/settings');
           }
         },

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:real_estate/firebase_auth/firebase_auth_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:real_estate/models/professionel.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 
 class ProfessionalsScreen extends StatefulWidget {
   @override
@@ -20,7 +21,8 @@ class _ProfessionalsScreenState extends State<ProfessionalsScreen> {
 
   Future<void> _authenticateAndFetchData() async {
     print('Authenticating...');
-    var user = await _authService.signInWithEmailAndPassword('1@gmail.com', '123123');
+    var user =
+        await _authService.signInWithEmailAndPassword('1@gmail.com', '123123');
     if (user != null) {
       print('User authenticated: ${user.email}');
       setState(() {
@@ -65,13 +67,14 @@ class _ProfessionalsScreenState extends State<ProfessionalsScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      height: 145,  // Adjust the height to provide more space for text content
+                      height:
+                          145, // Adjust the height to provide more space for text content
                       width: 300,
                       child: professional.photo.isNotEmpty
                           ? Image.asset(
-                        professional.photo,
-                        fit: BoxFit.cover,
-                      )
+                              professional.photo,
+                              fit: BoxFit.cover,
+                            )
                           : Icon(Icons.person, size: 100),
                     ),
                     Padding(
@@ -103,6 +106,39 @@ class _ProfessionalsScreenState extends State<ProfessionalsScreen> {
               );
             },
           );
+        },
+      ),
+      bottomNavigationBar: GNav(
+        gap: 8,
+        backgroundColor: const Color(0xFF272D2F),
+        color: Colors.white,
+        padding: const EdgeInsets.all(16),
+        tabBackgroundColor: Colors.grey.shade800,
+        activeColor: Colors.white,
+        tabs: [
+          const GButton(
+            icon: Icons.home,
+            text: "Home",
+          ),
+          const GButton(
+            icon: Icons.people_outline_rounded,
+            text: "Professionals",
+          ),
+          const GButton(
+            icon: Icons.favorite_border,
+            text: "Favorites",
+          ),
+          const GButton(
+            icon: Icons.settings,
+            text: "Settings",
+          ),
+        ],
+        onTabChange: (index) {
+          if (index == 1) {
+            Navigator.pushNamed(context, '/professionels');
+          } else if (index == 3) {
+            Navigator.pushNamed(context, '/settings');
+          }
         },
       ),
     );
