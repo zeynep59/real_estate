@@ -34,5 +34,9 @@
             android:value="2" />
         <meta-data android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBOngdyzESg55d9sRtlVcHFfNYxbyTCJ3A"/>
+        <meta-data
+            android:name="com.google.firebase.appcheck.v1.enabled"
+            android:value="true" />
         </application>
+
 </manifest>

@@ -18,6 +18,7 @@ class House {
   List<String> landscape;
   String? heating;
   List<String> opportunities;
+  String userId;  // Add userId property
 
   House({
     required this.address,
@@ -35,6 +36,7 @@ class House {
     required this.landscape,
     this.heating,
     required this.opportunities,
+    required this.userId,  // Include userId in constructor
   });
 
   House.fromJson(Map<String, dynamic?> json)
@@ -54,6 +56,7 @@ class House {
     landscape: (json['landscape'] as List<dynamic>).cast<String>(),
     heating: json['heating'] as String?,
     opportunities: (json['opportunities'] as List<dynamic>).cast<String>(),
+    userId: json['userId']! as String,  // Extract userId from JSON
   );
 
   Map<String, dynamic> toJson() {
@@ -73,6 +76,7 @@ class House {
       'landscape': landscape,
       'heating': heating,
       'opportunities': opportunities,
+      'userId': userId,  // Include userId in JSON
     };
   }
 }

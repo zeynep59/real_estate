@@ -85,4 +85,7 @@ class DatabaseService {
     void deleteFavorite(String favoriteId) {
     _favoriteRef.doc(favoriteId).delete();
     }
+    Stream<QuerySnapshot<House>> getHousesByUserId(String userId) {
+        return _housesRef.where('userId', isEqualTo: userId).snapshots();
+    }
   }
