@@ -65,7 +65,8 @@ class _SettingsState extends State<Settings> {
                         // Navigate to profile edit screen
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const Profile()),
+                          MaterialPageRoute(
+                              builder: (context) => const Profile()),
                         );
                       },
                     ),
@@ -116,24 +117,13 @@ class _SettingsState extends State<Settings> {
                     ),
                     ListTile(
                       leading: Icon(
-                        Icons.language,
-                        color: lightColorScheme.primary,
-                      ),
-                      title: const Text('Language'),
-                      subtitle: const Text('Choose your preferred language'),
-                      onTap: () {
-                        // Navigate to language settings screen
-                      },
-                    ),
-                    ListTile(
-                      leading: Icon(
                         Icons.help,
                         color: lightColorScheme.primary,
                       ),
                       title: const Text('Help & Support'),
                       subtitle: const Text('Get help and support'),
                       onTap: () {
-                        // Navigate to help and support screen
+                        Navigator.pushNamed(context, '/help');
                       },
                     ),
                     ListTile(
@@ -144,7 +134,8 @@ class _SettingsState extends State<Settings> {
                       title: const Text('Logout'),
                       onTap: () {
                         // Handle logout
-                        Navigator.pushReplacementNamed(context, '/sign_in'); // Redirect to sign-in screen
+                        Navigator.pushReplacementNamed(
+                            context, '/sign_in'); // Redirect to sign-in screen
                       },
                     ),
                   ],
@@ -181,7 +172,7 @@ class _SettingsState extends State<Settings> {
                 text: "Settings",
               ),
             ],
-            selectedIndex: 3,  // Ensure the settings tab is selected
+            selectedIndex: 3, // Ensure the settings tab is selected
             onTabChange: (index) {
               if (index == 0) {
                 Navigator.pushNamed(context, '/map_page');
