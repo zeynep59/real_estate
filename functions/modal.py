@@ -52,7 +52,7 @@ df1.columns
 
 
 # %%
-df2 = df1.drop(['Unnamed: 0', 'address', 'AdUpdateDate', 'Category', 'UsingStatus','NumberFloorsofBuilding', 'EligibilityForInvestment',
+df2 = df1.drop(['Unnamed: 0', 'address', 'AdUpdateDate', 'UsingStatus','NumberFloorsofBuilding', 'EligibilityForInvestment',
     'BuildStatus', 'TitleStatus', 'NumberOfWCs', 
     'AdCreationDate', 'Type', 'NetSquareMeters', 
     'CreditEligibility', 'StructureType', 'MortgageStatus', 
@@ -101,7 +101,7 @@ ax.bar_label(ax.containers[0])
 # Rotate 90 Room Types on xlabel
 plt.xticks(rotation = 90)
 # Title
-plt.title("Room/Hall Distribution");
+plt.title("Room/Hall Distribution")
 
 # %%
 # Convert number of rooms to room + hall format
@@ -215,7 +215,7 @@ df7
 # %%
 plt.figure(figsize = (15, 5))
 # Box plot based on GrossSquareMeters
-sns.boxplot(data = df7, x = "GrossSquareMeters");
+sns.boxplot(data = df7, x = "GrossSquareMeters")
 
 # %%
 df8 = df7.copy()
@@ -270,6 +270,7 @@ sns.histplot(data = df10, x = "price", bins = 100, kde = True);
 dummies1 = pd.get_dummies(df10.district)
 dummies2 = pd.get_dummies(df10.ItemStatus)
 
+
 # %%
 df11 = df10.copy()
 df11 = pd.concat([df10, dummies1], axis = "columns")
@@ -279,7 +280,7 @@ df11.columns
 
 # %%
 df12 = df11.copy()
-df12 = df11.drop(['district', 'ItemStatus', 'total_room', 'price_per_sqmt'], axis = "columns")
+df12 = df11.drop(['district', 'ItemStatus', 'total_room', 'price_per_sqmt','Category'], axis = "columns")
 df12.columns
 
 # %%
@@ -507,13 +508,13 @@ def predict_price(district, item, floor, heating, site, sqmt, room, hall, age, w
         return f"Error: Heating '{heating}' not found in dataset columns."
     if site not in X.columns:
         return f"Error: Site '{site}' not found in dataset columns."
+
     
     dist_index = np.where(X.columns == district)[0][0]  # District index
     item_index = np.where(X.columns == item)[0][0]      # Item index
     floor_index = np.where(X.columns == floor)[0][0]    # Floor index
     heating_index = np.where(X.columns == heating)[0][0]# Heating index
     site_index = np.where(X.columns == site)[0][0]      # Site index
-
     # Create feature array
     x = np.zeros(len(X.columns))
     x[0] = sqmt
@@ -528,12 +529,59 @@ def predict_price(district, item, floor, heating, site, sqmt, room, hall, age, w
     x[floor_index] = 1
     x[heating_index] = 1
     x[site_index] = 1
-
     # Predict and return the price
     estimated_price = round(rf_reg.predict([x])[0])
     return f"Estimated Price: {estimated_price} TL"
 
-# joblib.dump(rf_reg, 'functions/model.pkl')
+joblib.dump(rf_reg, 'functions/model.pkl')
+
+# Example call to the function
+print(predict_price("arnavutkoy", "Boş", "ÇatıKatı", "Heating_Klimalı", "Hayır", 120, 2, 1, 10, 1))
+
+# Define a route for your prediction API
+
+
+
+
+
+
+# def predict_price(district, item, floor, heating, site, sqmt, room, hall, age, wc):
+#     # Check if column names exist in X.columns
+#     if district not in X.columns:
+#         return f"Error: District '{district}' not found in dataset columns."
+#     if item not in X.columns:
+#         return f"Error: Item '{item}' not found in dataset columns."
+#     if floor not in X.columns:
+#         return f"Error: Floor '{floor}' not found in dataset columns."
+#     if heating not in X.columns:
+#         return f"Error: Heating '{heating}' not found in dataset columns."
+#     if site not in X.columns:
+#         return f"Error: Site '{site}' not found in dataset columns."
+
+#     # Create feature array
+#     x = np.zeros(len(X.columns))
+#     x[0] = sqmt
+#     x[1] = room
+#     x[2] = hall
+#     x[3] = age
+#     x[4] = wc
+    
+#     # Assign values for categorical variables
+#     dist_index = np.where(X.columns == district)[0][0]
+#     item_index = np.where(X.columns == item)[0][0]
+#     floor_index = np.where(X.columns == floor)[0][0]
+#     heating_index = np.where(X.columns == heating)[0][0]
+#     site_index = np.where(X.columns == site)[0][0]
+    
+#     x[dist_index] = 1
+#     x[item_index] = 1
+#     x[floor_index] = 1
+#     x[heating_index] = 1
+#     x[site_index] = 1
+    
+#     # Predict and return the price
+#     estimated_price = round(rf_reg.predict([x])[0])
+#     return f"Estimated Price: {estimated_price} TL"
 
 # Example call to the function
 print(predict_price("arnavutkoy", "Boş", "ÇatıKatı", "Heating_Klimalı", "Hayır", 120, 2, 1, 10, 1))
