@@ -88,14 +88,14 @@ df3.isnull().sum()
 
 # %%
 # Number of rooms
-room_types = df3["NumberOfRooms"].value_counts() # Value counts
+room_types = df3["numberOfRooms"].value_counts() # Value counts
 room_types
 
 # %%
 # Adjusts the width and height of the figure
 plt.figure(figsize = (15, 5))
 # Count plot based on NumberOfRooms
-ax = sns.countplot(data = df3, x = "NumberOfRooms")
+ax = sns.countplot(data = df3, x = "numberOfRooms")
 # Container counts
 ax.bar_label(ax.containers[0])
 # Rotate 90 Room Types on xlabel
@@ -138,10 +138,10 @@ def convert_rooms_to_total_room(x):
 
 # %%
 df4 = df3.copy()
-df4["NumberOfRooms"] = df4["NumberOfRooms"].apply(convert_rooms_to_room_hall)
-df4["hall"] = df4["NumberOfRooms"].apply(convert_rooms_to_hall)
-df4["total_room"] = df4["NumberOfRooms"].apply(convert_rooms_to_total_room)
-df4["NumberOfRooms"] = df4["NumberOfRooms"].apply(convert_rooms_to_room)
+df4["numberOfRooms"] = df4["numberOfRooms"].apply(convert_rooms_to_room_hall)
+df4["numberOfHalls"] = df4["numberOfRooms"].apply(convert_rooms_to_hall)
+df4["total_room"] = df4["numberOfRooms"].apply(convert_rooms_to_total_room)
+df4["numberOfRooms"] = df4["numberOfRooms"].apply(convert_rooms_to_room)
 df4
 
 # %%
@@ -149,9 +149,9 @@ fig, (ax0, ax1) = plt.subplots(nrows = 1, ncols = 2)
 # Adjusts the width and height of the figure
 fig.set_size_inches([15, 3]) 
 # Count plot based on NumberOfRooms
-sns.countplot(data = df4, x = 'NumberOfRooms', color = "lightblue", dodge = False, ax = ax0) 
+sns.countplot(data = df4, x = 'numberOfRooms', color = "lightblue", dodge = False, ax = ax0) 
 # Kde plot based on NumberOfRooms
-sns.kdeplot(data = df4, x = 'NumberOfRooms', color = "blue", ax = ax1); 
+sns.kdeplot(data = df4, x = 'numberOfRooms', color = "blue", ax = ax1); 
 
 # %%
 df4.groupby("price")["price"].agg("count")
@@ -186,7 +186,7 @@ plt.xlim(0, 0.001e10)
 sns.boxplot(data = df5, x = "price");
 
 # %%
-df5.groupby("GrossSquareMeters")["GrossSquareMeters"].agg("count")
+df5.groupby("grossArea")["grossArea"].agg("count")
 
 # %%
 def convert_grosssquaremeters_to_num(x):
@@ -200,26 +200,26 @@ def convert_grosssquaremeters_to_num(x):
 
 # %%
 df6 = df5.copy()
-df6["GrossSquareMeters"] = df6["GrossSquareMeters"].apply(convert_grosssquaremeters_to_num)
+df6["grossArea"] = df6["grossArea"].apply(convert_grosssquaremeters_to_num)
 df6
 
 # %%
-df6[(df6.GrossSquareMeters / df6.total_room) > 100]
+df6[(df6.grossArea / df6.total_room) > 100]
 
 
 # %%
 df7 = df6.copy()
-df7 = df6[~((df6.GrossSquareMeters / df6.total_room) > 100)]
+df7 = df6[~((df6.grossArea / df6.total_room) > 100)]
 df7
 
 # %%
 plt.figure(figsize = (15, 5))
 # Box plot based on GrossSquareMeters
-sns.boxplot(data = df7, x = "GrossSquareMeters")
+sns.boxplot(data = df7, x = "grossArea")
 
 # %%
 df8 = df7.copy()
-df8["price_per_sqmt"] = df8["price"] / df8["GrossSquareMeters"]
+df8["price_per_sqmt"] = df8["price"] / df8["grossArea"]
 df8
 
 # %%
@@ -317,24 +317,24 @@ def categorize_floor_location(floor_location):
     else:
         return 'Other'
 
-df12['FloorLocation'] = df12['FloorLocation'].apply(categorize_floor_location)
+df12['floorOn'] = df12['floorOn'].apply(categorize_floor_location)
 
 
 df12.columns
 
 # %%
-dummies_3 = pd.get_dummies(df12.FloorLocation)
+dummies_3 = pd.get_dummies(df12.floorOn)
 dummies_5 = pd.get_dummies(df12.InsideTheSite)
 
 df13 = df12.copy()
 df13 = pd.concat([df13, dummies_3], axis = "columns")
 df13 = pd.concat([df13, dummies_5], axis = "columns")
 
-heating_dummies = pd.get_dummies(df13['HeatingType'], prefix='Heating')
+heating_dummies = pd.get_dummies(df13['heating'], prefix='Heating')
 
 # Dummy dataframe'i orijinal dataframe ile birleştirme
 df13 = pd.concat([df13, heating_dummies], axis=1)
-drop_columns = ['FloorLocation','InsideTheSite','HeatingType']
+drop_columns = ['floorOn','InsideTheSite','heating']
 df13.drop(drop_columns, axis=1, inplace=True)
 
 #df13 = df12.drop(['FloorLocation','FloorCategory'], axis = "columns")
@@ -362,7 +362,7 @@ def standardize_building_age(age):
             return int(age_str)
         except ValueError:
             return None
-df14['BuildingAge'] = df14['BuildingAge'].apply(standardize_building_age).astype(float)
+df14['buildingAge'] = df14['buildingAge'].apply(standardize_building_age).astype(float)
 
 # %%
 def bathroom(num):
@@ -377,7 +377,7 @@ def bathroom(num):
         except ValueError:
             return 0
 
-df14['NumberOfBathrooms'] = df14['NumberOfBathrooms'].apply(bathroom).astype(float)
+df14['numberOfBaths'] = df14['numberOfBaths'].apply(bathroom).astype(float)
 
 
 
@@ -496,7 +496,7 @@ df10.columns
 
 import numpy as np
 
-def predict_price(district, item, floor, heating, site, sqmt, room, hall, age, wc):
+def predict_price(district, item, floor, heating, site, sqmt, room, numberOfHalls, age, wc):
     # Check if column names exist in X.columns
     if district not in X.columns:
         return f"Error: District '{district}' not found in dataset columns."
@@ -519,7 +519,7 @@ def predict_price(district, item, floor, heating, site, sqmt, room, hall, age, w
     x = np.zeros(len(X.columns))
     x[0] = sqmt
     x[1] = room
-    x[2] = hall
+    x[2] = numberOfHalls
     x[3] = age
     x[4] = wc
     
@@ -584,4 +584,4 @@ print(predict_price("arnavutkoy", "Boş", "ÇatıKatı", "Heating_Klimalı", "Ha
 #     return f"Estimated Price: {estimated_price} TL"
 
 # Example call to the function
-print(predict_price("arnavutkoy", "Boş", "ÇatıKatı", "Heating_Klimalı", "Hayır", 120, 2, 1, 10, 1))
+print(predict_price("zeytinburnu", "Boş", "ÇatıKatı", "Heating_Klimalı", "Hayır", 300, 4, 1, 10, 1))

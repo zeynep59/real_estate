@@ -7,7 +7,6 @@ import 'package:real_estate/screens/signup.dart';
 import 'package:real_estate/screens/form_page.dart';
 import 'package:real_estate/screens/welcome.dart';
 import 'package:real_estate/theme/theme.dart';
-import 'package:real_estate/screens/stepper_formPage.dart';
 import 'package:real_estate/screens/settings.dart';
 import 'package:real_estate/screens/professionels.dart';
 import 'package:real_estate/screens/help_and_support.dart';

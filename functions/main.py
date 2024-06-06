@@ -18,6 +18,11 @@ def preprocess_input(data):
         # Convert input data to DataFrame
         input_df = pd.DataFrame([data])
 
+        # Check if 'price' exists in the data
+        if 'price' in input_df.columns:
+            # Remove the 'price' column
+            input_df.drop('price', axis=1, inplace=True)
+
         # Categorical columns to be one-hot encoded
         categorical_columns = ['district', 'item', 'floor', 'heating', 'site']
 
@@ -27,7 +32,7 @@ def preprocess_input(data):
                 input_df[col] = None  # or set a default value
 
         # One-hot encode categorical features
-        input_df = pd.get_dummies(input_df, columns=categorical_columns, drop_first=False)  # Use drop_first=False to match training
+        input_df = pd.get_dummies(input_df, columns=categorical_columns, drop_first=False)
 
         # Ensure all columns expected by the model are present
         expected_columns = model.feature_names_in_
@@ -62,7 +67,7 @@ def predict():
         logging.debug(f"Prediction: {prediction[0]}")
 
         # Return JSON response
-        response = {'predictedPrice': float(prediction[0])}  # Convert prediction to float
+        response = {'predictedPrice': float(prediction[0])}
         return jsonify(response)
 
     except Exception as e:
