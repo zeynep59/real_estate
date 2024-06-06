@@ -7,10 +7,10 @@ import 'package:real_estate/screens/signup.dart';
 import 'package:real_estate/screens/form_page.dart';
 import 'package:real_estate/screens/welcome.dart';
 import 'package:real_estate/theme/theme.dart';
-import 'package:real_estate/screens/stepper_formPage.dart';
 import 'package:real_estate/screens/settings.dart';
 import 'package:real_estate/screens/professionels.dart';
 import 'package:real_estate/screens/help_and_support.dart';
+import 'package:real_estate/screens/chatBot.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
         '/map_page': (context) => MapPage(),
         '/professionels': (context) => ProfessionalsScreen(),
         '/settings': (context) => Settings(),
-        '/favorites': (context) => MapPage(),
+        '/chatBot': (context) => ChatBotPage(),
         '/help': (context) => HelpAndSupport(),
       },
     );

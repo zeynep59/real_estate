@@ -168,8 +168,9 @@ class _SettingsState extends State<Settings> {
               } else if (index == 1) {
                 Navigator.pushNamed(context, '/professionels');
               } else if (index == 2) {
-                Navigator.pushNamed(context, '/favorites');
-              } else if (index == 3) {
+                Navigator.pushNamed(context, '/chatBot');
+              }
+              else if (index == 3) {
                 Navigator.pushNamed(context, '/settings');
               }
             },

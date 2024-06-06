@@ -237,7 +237,7 @@ class _MapPageState extends State<MapPage> {
             } else if (index == 1) {
               Navigator.pushNamed(context, '/professionels');
             } else if (index == 2) {
-              _showFavorites = true;
+              Navigator.pushNamed(context, '/chatBot');
             } else if (index == 3) {
               Navigator.pushNamed(context, '/settings');
             }
