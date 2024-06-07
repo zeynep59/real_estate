@@ -83,6 +83,7 @@ class _MyStepperState extends State<MyStepper> {
   String selectedHeatingSystem = '';
   bool valueAndRent = false;
   int value1 = 1780;
+  double predictedResult = 0.0;
   double predictedPrice = 0.0;
   int value2 = 1980;
   final currentUser = FirebaseAuth.instance.currentUser!;
@@ -236,9 +237,8 @@ class _MyStepperState extends State<MyStepper> {
         type: StepperType.horizontal,
         currentStep: _currentStep,
         onStepContinue: () async {
-          if (_currentStep < 3) {
-            setState(() => _currentStep++);
-          } else if (_currentStep == 3) {
+          if (_currentStep == 2) {
+            setState(() => predictedPrice = predictedPrice);
             House house = House(
               address: address,
               squaremeter: double.parse(squareMeterController.text),
@@ -258,7 +258,6 @@ class _MyStepperState extends State<MyStepper> {
               userId: currentUser.uid,
             );
             //add given house to the firestore db
-            _databaseService.addHouse(house);
 
             String jsonData = jsonEncode(house.toJson());
             // Send JSON data to Flask API
@@ -271,7 +270,7 @@ class _MyStepperState extends State<MyStepper> {
                   'Accept': 'application/json',
                 },
               );
-
+              house.price = predictedPrice / 51;
               print('Response status: ${response.statusCode}');
               print('Response body: ${response.body}');
 
@@ -279,6 +278,8 @@ class _MyStepperState extends State<MyStepper> {
                 print('House data sent successfully');
                 var jsonResponse = jsonDecode(response.body);
                 predictedPrice = jsonResponse['predictedPrice'];
+                house.price = predictedPrice / 51;
+                _databaseService.addHouse(house);
               } else {
                 print('Failed to send house data: ${response.statusCode}');
               }
@@ -286,6 +287,9 @@ class _MyStepperState extends State<MyStepper> {
               print('Error: $e');
             }
           }
+          if (_currentStep < 3) {
+            setState(() => _currentStep++);
+          } else if (_currentStep == 3) {}
         },
         onStepCancel: () {
           if (_currentStep > 0) {
@@ -1011,9 +1015,11 @@ class _MyStepperState extends State<MyStepper> {
                                 if (valueAndRent) {
                                   value1 = 2000;
                                   value2 = 3000;
+                                  predictedResult = predictedPrice / 51;
                                 } else {
                                   value1 = 1780;
                                   value2 = 1980;
+                                  predictedResult = predictedPrice * 2.9;
                                 }
                               });
                             },
@@ -1068,7 +1074,7 @@ class _MyStepperState extends State<MyStepper> {
                                 borderRadius: BorderRadius.circular(5),
                               ),
                               child: Text(
-                                '${predictedPrice.toStringAsFixed(2)}₺', // Show predictedPrice instead of price1
+                                '${predictedResult.toStringAsFixed(2)}₺', // Show predictedPrice instead of price1
                                 style: TextStyle(
                                     fontSize: 35,
                                     fontWeight: FontWeight.bold,

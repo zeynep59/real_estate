@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Real Estate App',
       theme: lightMode,
-      home: FavoritesPanel(),
+      home: WelcomePage(),
       routes: {
         '/home': (context) => HomeScreen(),
         '/sign_in': (context) => SignInScreen(),
