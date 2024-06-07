@@ -35,9 +35,17 @@ class _ProfessionalsScreenState extends State<ProfessionalsScreen> {
   }
 
   void _onTabChange(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+      setState(() {
+        if (index == 0) {
+          Navigator.pushNamed(context, '/map_page');
+        } else if (index == 1) {
+          Navigator.pushNamed(context, '/professionels');
+        } else if (index == 2) {
+          Navigator.pushNamed(context, '/history');
+        } else if (index == 3) {
+          Navigator.pushNamed(context, '/settings');
+        }
+      });
   }
 
   @override
@@ -75,10 +83,10 @@ class _ProfessionalsScreenState extends State<ProfessionalsScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      height: 145, // Adjust the height to provide more space for text content
-                      width: double.infinity,
+                      height: 145,  // Adjust the height to provide more space for text content
+                      width: 300,
                       child: professional.photo.isNotEmpty
-                          ? Image.network(
+                          ? Image.asset(
                         professional.photo,
                         fit: BoxFit.cover,
                       )
@@ -142,6 +150,7 @@ class _ProfessionalsScreenState extends State<ProfessionalsScreen> {
             text: 'Settings',
           ),
         ],
+
       ),
     );
   }
