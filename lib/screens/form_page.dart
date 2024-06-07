@@ -29,8 +29,8 @@ class _FormPageState extends State<FormPage> {
             text: "Professionals",
           ),
           GButton(
-            icon: Icons.favorite_border,
-            text: "Favorites",
+            icon: Icons.history,
+            text: "History",
           ),
           GButton(
             icon: Icons.settings,

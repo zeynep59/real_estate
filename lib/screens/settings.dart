@@ -153,8 +153,8 @@ class _SettingsState extends State<Settings> {
                 text: "Professionals",
               ),
               GButton(
-                icon: Icons.favorite_border,
-                text: "Favorites",
+                icon: Icons.history,
+                text: "History",
               ),
               GButton(
                 icon: Icons.settings,
@@ -168,7 +168,7 @@ class _SettingsState extends State<Settings> {
               } else if (index == 1) {
                 Navigator.pushNamed(context, '/professionels');
               } else if (index == 2) {
-                Navigator.pushNamed(context, '/favorites');
+                Navigator.pushNamed(context, '/history');
               } else if (index == 3) {
                 Navigator.pushNamed(context, '/settings');
               }

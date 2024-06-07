@@ -15,6 +15,7 @@ import 'package:real_estate/screens/settings.dart';
 import '../components/searchField.dart';
 import '../models/address.dart';
 import '../models/house.dart';
+import '../screens/FavoritesPanel.dart';
 
 class MapPage extends StatefulWidget {
   const MapPage({Key? key}) : super(key: key);
@@ -31,6 +32,7 @@ class _MapPageState extends State<MapPage> {
   String _currentCity = "Loading...";
   final currentUser = FirebaseAuth.instance.currentUser!;
   bool _showFavorites = false;
+  int _selectedIndex = 0;
 
   final cityController = TextEditingController();
   final countryController = TextEditingController();
@@ -192,6 +194,21 @@ class _MapPageState extends State<MapPage> {
         padding: const EdgeInsets.all(16),
         tabBackgroundColor: Colors.grey.shade800,
         activeColor: Colors.white,
+        selectedIndex: _selectedIndex, // Set the selected index
+        onTabChange: (index) {
+          setState(() {
+            _selectedIndex = index; // Update the selected index
+          });
+          if (index == 0) {
+            Navigator.pushNamed(context, '/map_page');
+          } else if (index == 1) {
+            Navigator.pushNamed(context, '/professionels');
+          } else if (index == 2) {
+            Navigator.pushNamed(context, '/history');
+          } else if (index == 3) {
+            Navigator.pushNamed(context, '/settings');
+          }
+        },
         tabs: const [
           GButton(
             icon: Icons.home,
@@ -210,21 +227,6 @@ class _MapPageState extends State<MapPage> {
             text: "Settings",
           ),
         ],
-        onTabChange: (index) {
-          setState(() {
-            if (index == 0) {
-              _showFavorites =
-                  false; // Hide favorites panel when Home tab is selected
-            } else if (index == 1) {
-              Navigator.pushNamed(context, '/professionels');
-            } else if (index == 2) {
-              _showFavorites =
-                  true; // Show favorites panel when Favorites tab is selected
-            } else if (index == 3) {
-              Navigator.pushNamed(context, '/settings');
-            }
-          });
-        },
       ),
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:real_estate/screens/FavoritesPanel.dart';
 import 'package:real_estate/screens/home_screen.dart';
 import 'package:real_estate/screens/map_page.dart';
 import 'package:real_estate/screens/signin.dart';
@@ -21,7 +22,6 @@ void main() async {
       projectId: 'realestate-412921',
     ),
   );
-
   runApp(const MyApp());
 }
 
@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Real Estate App',
       theme: lightMode,
-      home: const WelcomePage(),
+      home: FavoritesPanel(),
       routes: {
         '/home': (context) => HomeScreen(),
         '/sign_in': (context) => SignInScreen(),
@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
         '/map_page': (context) => MapPage(),
         '/professionels': (context) => ProfessionalsScreen(),
         '/settings': (context) => Settings(),
-        '/favorites': (context) => MapPage(),
+        '/history': (context) => FavoritesPanel(),
         '/help': (context) => HelpAndSupport(),
       },
     );

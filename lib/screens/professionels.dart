@@ -37,6 +37,7 @@ class _ProfessionalsScreenState extends State<ProfessionalsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false, // Remove the back button
         title: Text('Professionals'),
       ),
       body: FutureBuilder<List<Professional>>(
@@ -115,27 +116,31 @@ class _ProfessionalsScreenState extends State<ProfessionalsScreen> {
         padding: const EdgeInsets.all(16),
         tabBackgroundColor: Colors.grey.shade800,
         activeColor: Colors.white,
-        tabs: [
-          const GButton(
+        tabs: const [
+          GButton(
             icon: Icons.home,
             text: "Home",
           ),
-          const GButton(
+          GButton(
             icon: Icons.people_outline_rounded,
             text: "Professionals",
           ),
-          const GButton(
-            icon: Icons.favorite_border,
-            text: "Favorites",
+          GButton(
+            icon: Icons.history,
+            text: "History",
           ),
-          const GButton(
+          GButton(
             icon: Icons.settings,
             text: "Settings",
           ),
         ],
         onTabChange: (index) {
-          if (index == 1) {
+          if (index == 0) {
+            Navigator.pushNamed(context, '/map_page');
+          } else if (index == 1) {
             Navigator.pushNamed(context, '/professionels');
+          } else if (index == 2) {
+            Navigator.pushNamed(context, '/history');
           } else if (index == 3) {
             Navigator.pushNamed(context, '/settings');
           }
