@@ -218,8 +218,8 @@ class _MapPageState extends State<MapPage> {
             text: "Home",
           ),
           GButton(
-            icon: Icons.search,
-            text: "Search",
+            icon: Icons.people_outline_rounded,
+            text: "Professionals",
           ),
           GButton(
             icon: Icons.favorite_border,

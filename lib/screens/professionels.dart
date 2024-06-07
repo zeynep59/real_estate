@@ -12,6 +12,7 @@ class ProfessionalsScreen extends StatefulWidget {
 class _ProfessionalsScreenState extends State<ProfessionalsScreen> {
   final FirebaseAuthService _authService = FirebaseAuthService();
   late Future<List<Professional>> _professionalsFuture = Future.value([]);
+  int _selectedIndex = 1;  // Assuming 'Professionals' is at index 1
 
   @override
   void initState() {
@@ -22,7 +23,7 @@ class _ProfessionalsScreenState extends State<ProfessionalsScreen> {
   Future<void> _authenticateAndFetchData() async {
     print('Authenticating...');
     var user =
-        await _authService.signInWithEmailAndPassword('1@gmail.com', '123123');
+    await _authService.signInWithEmailAndPassword('1@gmail.com', '123123');
     if (user != null) {
       print('User authenticated: ${user.email}');
       setState(() {
@@ -33,11 +34,17 @@ class _ProfessionalsScreenState extends State<ProfessionalsScreen> {
     }
   }
 
+  void _onTabChange(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false, // Remove the back button
+        automaticallyImplyLeading: false, // Removes the back button
         title: Text('Professionals'),
       ),
       body: FutureBuilder<List<Professional>>(
@@ -68,14 +75,13 @@ class _ProfessionalsScreenState extends State<ProfessionalsScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      height:
-                          145, // Adjust the height to provide more space for text content
-                      width: 300,
+                      height: 145, // Adjust the height to provide more space for text content
+                      width: double.infinity,
                       child: professional.photo.isNotEmpty
-                          ? Image.asset(
-                              professional.photo,
-                              fit: BoxFit.cover,
-                            )
+                          ? Image.network(
+                        professional.photo,
+                        fit: BoxFit.cover,
+                      )
                           : Icon(Icons.person, size: 100),
                     ),
                     Padding(
@@ -111,40 +117,31 @@ class _ProfessionalsScreenState extends State<ProfessionalsScreen> {
       ),
       bottomNavigationBar: GNav(
         gap: 8,
-        backgroundColor: const Color(0xFF272D2F),
+        backgroundColor: Colors.black,
         color: Colors.white,
         padding: const EdgeInsets.all(16),
         tabBackgroundColor: Colors.grey.shade800,
         activeColor: Colors.white,
+        selectedIndex: _selectedIndex,
+        onTabChange: _onTabChange,
         tabs: const [
           GButton(
             icon: Icons.home,
-            text: "Home",
+            text: 'Home',
           ),
           GButton(
             icon: Icons.people_outline_rounded,
-            text: "Professionals",
+            text: 'Professionals',
           ),
           GButton(
             icon: Icons.history,
-            text: "History",
+            text: 'History',
           ),
           GButton(
             icon: Icons.settings,
-            text: "Settings",
+            text: 'Settings',
           ),
         ],
-        onTabChange: (index) {
-          if (index == 0) {
-            Navigator.pushNamed(context, '/map_page');
-          } else if (index == 1) {
-            Navigator.pushNamed(context, '/professionels');
-          } else if (index == 2) {
-            Navigator.pushNamed(context, '/history');
-          } else if (index == 3) {
-            Navigator.pushNamed(context, '/settings');
-          }
-        },
       ),
     );
   }
